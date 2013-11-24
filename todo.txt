@@ -1,0 +1,80 @@
+﻿  == MÁSOK IS ==
+ - [] fix icons
+ - [] new label button a label cuccra is.
+ - [] tag search az addTagPopup-ban, és a TagList-ben.
+ - [] facebook wall
+ - [] youtube
+		  - [] share youtube on facebook, kb. mint a google musicban, de ez facebookra oszt.
+ - [] right click - libraryban és playlisten is jöjjön elő helyi menü: "share on Facebook", és "edit info"
+	  - [] edit info - zeneszám szerkesztése, úgy, mint iTunesban a GetInfo.
+ - [] playlist import (drag and dropra is)
+ - [] zene import drag and dropra 
+ - [] tagek folderek vagy fa strukturájuak ha ddd/aaa ddd/bbb akkor ddd egy folder, csak a tagList-ben
+ - [] tooltips
+ - [] "no labels to this track" ne irodjon ki, ha semmi vagy album van kijelölve.
+ - [] binding warningok kiirtása
+ - [] folder add bugfix - fogalmam sincs mi a hiba, nehéz lesz kiirtani. cs.
+ - [] tag settings -- color, ...
+	 - [] tag, ami elkeriti a shuffle allt.
+	 - [] tags as icons
+ - [] rating fölülre a control-ba.
+ - [] amplification, settings, mail bekötése. mail:bugreport/feature request/feedback/...
+ - [] folder app megcsinálása..
+ - [] add label playlisthez (összes számhoz ad) bekötése
+ - [] chrome plugin: ha youtube megy, akkor pause, majd resume a végén.. megoldható? Ugyanebben mp3 keresés weboldalon
+ - [] hotkeyek, keyboard play/pause, ...
+ - [] ikon fixálása, kicsihez kicsi, ...
+ - [] option to open .mp3 as default.
+ - [] mash tape like stuff (songbirdben van: http://addons.songbirdnest.com/addon/73)
+ - [] minimize to tray option
+ - [] option for popup notif when song changes
+ - [] watch folders, ha zenét adok hozzá a zene mappámhoz, vegye észre
+ - [] pro accounthoz sync, csak online zenét. 
+ 
+ - gombnyomásra végtelenitett repeat akár 10 mp-t, akár .  
+ - [peti] rating automatikus (optional): meghallgatod ++, skippeled -10; aging, ...
+
+ - sleep mód
+ - last.fm api integráció
+
+
+ - könyvtárad youtubeon megkeresi, és úgy sync, meg web player, meg....
+ - web player
+ - youtube subscribe új előadókra
+
+
+
+ == Csomák érti csak ... ==
+ 
+ - try sectionlist on library: http://corlan.org/2011/07/04/creating-flex-mobile-section-lists/
+    - drag and drop lib -> playlist
+
+
+ - backgroundok (zenekarokkal, stb..)
+ - 5.1, 7.1 speaker support
+ - tag search, search, autoDJ
+ - labelList options gombok bekötése, klikkre arra legyen szűrés
+ - library column width - save and load
+ - előadó ratingje = szum song ratings
+ - rating display
+ - alternativ rating systemek: 5*, like/dislike, ...
+ - party mode (admin)
+ - ios, android (stream?) 
+ - custom save folder for settings, labels, sync
+
+ 
+ == MAINTENANCE ==
+ - auto update
+ - log
+ - pro authenticate 
+	- facebook, google oauth
+
+ - website
+ 
+ == BUGS ==
+ 
+ 
+ == DONE ==
+ + load music asap
+ - chromeless -> kipróbáltam, nem jó
+ - kipróbálni a playlistet bal oldalt, kicsiben -> nem rossz, de talán

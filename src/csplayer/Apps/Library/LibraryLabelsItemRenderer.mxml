@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:MXAdvancedDataGridItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+								  xmlns:s="library://ns.adobe.com/flex/spark" 
+								  xmlns:mx="library://ns.adobe.com/flex/mx" 
+								  dataChange="mxadvanceddatagriditemrenderer1_dataChangeHandler(event)"
+								  focusEnabled="true">
+	<fx:Script>
+		<![CDATA[
+			import csplayer.Classes.SoundTrack;
+			import csplayer.Classes.Tag;
+			import csplayer.Components.TagChooser.TagChooser;
+			import mx.collections.ArrayCollection;
+			import mx.core.IFlexDisplayObject;
+			import mx.events.FlexEvent;
+			import mx.managers.PopUpManager;
+			
+			import spark.components.Label;
+			
+			[Bindable] private var dp:ArrayCollection=new ArrayCollection();
+		 	
+			protected function mxadvanceddatagriditemrenderer1_dataChangeHandler(event:FlexEvent):void {
+				dp=new ArrayCollection();
+				if(data is SoundTrack){
+					for each(var label:Tag in (data as SoundTrack).labels){
+						dp.addItem(label)
+					}
+				} else {
+					//trace("LibraryLabelsItemRenderer:addfolder.not soundTrack")
+				}
+				
+				
+				/* hgroup.removeAllElements();
+				try{
+					
+					for(var i:int=0; i<(data as SoundTrack).labels.length; i++){
+						var lab:Label= new Label()
+						lab.text=(data as SoundTrack).labels[i].nameWithoutSpecs()
+						hgroup.addElement(lab)
+					}
+				} catch(e:Error){
+					
+				} */
+			}
+			
+			protected function button1_clickHandler(event:MouseEvent):void {
+				if(data is SoundTrack){
+					var tagChooser:TagChooser=new TagChooser()
+					tagChooser.theSound=data as SoundTrack
+					
+					tagChooser.x=int(-width/2+tagChooser.width/2)
+					tagChooser.y=int(-height/2+tagChooser.height/2)
+					PopUpManager.addPopUp(tagChooser, this)
+					
+					//(data as SoundTrack).labels.push(new Tag("added"));
+					tagChooser.addEventListener(Event.REMOVED, function():void{refresh()})
+				} else {
+					//trace("LibraryLabelsItemRenderernot soundtrack")
+				}
+			}
+			
+			protected function refresh():void{
+				(data as SoundTrack).rating--;
+				(data as SoundTrack).rating++;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:List borderVisible="false" width="100%" id="list" dataProvider="{dp}" itemRenderer="csplayer.Components.LabelRenderer2" >
+		<s:layout>
+			<s:HorizontalLayout />
+			<!--<s:TileLayout useVirtualLayout="false" />-->
+		</s:layout>
+	</s:List>
+</s:MXAdvancedDataGridItemRenderer>

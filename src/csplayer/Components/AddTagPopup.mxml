@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009"
+         xmlns:s="library://ns.adobe.com/flex/spark"
+         creationComplete="panel1_creationCompleteHandler(event)"
+         keyDown="panel1_keyDownHandler(event)"
+         width="214" height="300" title="Tag as:">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			import mx.events.FlexMouseEvent;
+			import mx.managers.PopUpManager;
+			
+			import spark.components.Group;
+			import spark.events.IndexChangeEvent;
+			
+			import csplayer.Classes.SoundTrack;
+			import csplayer.Classes.Tag;
+			import csplayer.Classes.TagManager;
+			
+			private var _st:Vector.<SoundTrack>=new Vector.<SoundTrack>();
+			[Bindable]
+			private var _tags:ArrayCollection=new ArrayCollection();
+			
+			public function setSoundTrack(st:Object):void {
+				for each (var s:Object in st){
+					if(s is SoundTrack) _st.push(s);
+				}
+				
+				list.addEventListener(IndexChangeEvent.CHANGE, change)
+			}
+			
+			public function addTag(tag:Tag):void {
+				_tags.addItem(tag)
+			}
+			
+			protected function change(event:IndexChangeEvent):void {
+				changeTag(list.selectedItem as Tag);
+			}
+			
+			protected function changeTag(tag:Tag):void {
+				for each(var s:SoundTrack in _st){
+					s.addTag(tag);
+				}
+				
+				//hogy frissüljön:
+				if(parent is LabelsRenderer) (parent as LabelsRenderer).dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+				dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+				if(s){
+					s.rating--; 
+					s.rating++;
+				} 
+				
+				close()
+			}
+			
+			public function close(e:Event=null):void{
+				try{
+					(parent as Group).removeElement(this);
+				} catch (err:Error){
+					PopUpManager.removePopUp(this);
+				}
+			}
+			
+			protected function panel1_creationCompleteHandler(event:FlexEvent):void {
+				addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, close);
+				addEventListener(KeyboardEvent.KEY_DOWN, panel1_keyDownHandler);
+			}
+			
+			protected function panel1_keyDownHandler(event:KeyboardEvent):void {
+				if(event.keyCode==Keyboard.ESCAPE) close()
+			}
+			
+			protected function textinput1_enterHandler(event:FlexEvent):void
+			{
+				var t:Tag=new Tag(textInput.text);
+				TagManager.instance.addTag(t);
+				changeTag(t);
+				TagList.instance.refresh();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	
+	<s:TextInput id="textInput" x="10" y="10" width="170" enter="textinput1_enterHandler(event)"/>
+	<s:Image y="11" right="8" width="21" height="21" smooth="true" source="icons/search.png"/>
+	<s:List id="list"
+            dataProvider="{_tags}"
+            itemRenderer="csplayer.Components.LabelRenderer2"
+            left="10" right="9" top="40" bottom="10">
+    </s:List>
+	<s:Image y="-25" right="6" width="19" height="19" click="close(event)" smooth="true"
+			 source="icons/1341143725_cancel.png"/>
+</s:Panel>

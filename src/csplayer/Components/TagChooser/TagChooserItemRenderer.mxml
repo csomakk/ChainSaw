@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark" 
+				xmlns:mx="library://ns.adobe.com/flex/mx" 
+				dataChange="itemrenderer1_dataChangeHandler(event)"
+				initialize="itemrenderer1_initializeHandler(event)"
+				creationComplete="itemrenderer1_creationCompleteHandler(event)"
+				autoDrawBackground="true" xmlns:local="*" xmlns:Components="csplayer.Components.*">
+	
+	<fx:Script>
+		<![CDATA[
+			import csplayer.Classes.CsPlayerEvents;
+			import csplayer.Classes.Tag;
+			import mx.events.FlexEvent;
+			
+			protected function itemrenderer1_dataChangeHandler(event:FlexEvent):void {
+				
+			}
+			
+			protected function itemrenderer1_initializeHandler(event:FlexEvent):void
+			{
+				checkbox.addEventListener(CsPlayerEvents.TRISTATE_CHECKBOX_CHANGE, change)
+				
+			}
+			
+			protected function change(e:Event=null):void{
+				(data as Tag).selected=checkbox.boxState
+			}
+			
+			protected function itemrenderer1_creationCompleteHandler(event:FlexEvent):void
+			{
+				if((data as Tag).selected==1) checkbox.boxState=1
+				if((data as Tag).selected==0) checkbox.boxState=0
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<mx:HBox verticalCenter="0">
+		<Components:TriStateCheckBox id="checkbox"  />
+		<s:Label text="{(data as Tag).nameWithoutSpecs()}"/>
+	</mx:HBox>	
+
+</s:ItemRenderer>

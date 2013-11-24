@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				color="{col1}"
+				xmlns:s="library://ns.adobe.com/flex/spark"  
+				xmlns:mx="library://ns.adobe.com/flex/mx" dataChange="itemrenderer1_dataChangeHandler(event)" 
+				autoDrawBackground="true">
+	<fx:Script>
+		<![CDATA[
+			import csplayer.Classes.Tag;
+			import mx.events.FlexEvent;
+			
+			[Bindable] protected var col1:uint=0x000000;
+			[Bindable] protected var txtcolor:uint=0xFFFFFF;
+			
+			protected function itemrenderer1_dataChangeHandler(event:FlexEvent):void {
+				lbl.text=(data as Tag).nameWithoutSpecs();
+				col1=(data as Tag).color1;
+				txtcolor=(data as Tag).textColor;
+			}
+			
+		]]>
+	</fx:Script>
+	<s:Rect width="100%" height="100%">
+		<s:fill><s:SolidColor color="{col1}" /></s:fill>
+	</s:Rect>
+	<s:Label id="lbl" color="{txtcolor}" text="" textAlign="center" verticalAlign="middle"/>
+	
+</s:ItemRenderer>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+                       close="windowedapplication1_closeHandler(event)"
+                       initialize="windowedapplication1_initializeHandler(event)"
+                       showStatusBar="false"
+                       xmlns:Containers="csplayer.Containers.*">
+    <fx:Script><![CDATA[
+        import csplayer.Classes.TagManager;
+        import csplayer.Components.SettingsPopup;
+
+        import mx.events.FlexEvent;
+
+        private var settings:SettingsPopup;
+
+        protected function windowedapplication1_closeHandler(event:Event):void {
+            TagManager.instance.save();
+        }
+
+        protected function windowedapplication1_initializeHandler(event:FlexEvent):void {
+            settings=new SettingsPopup();
+            settings.construct();
+        }
+        ]]></fx:Script>
+    <Containers:MainContainer id="mainContainer"/>
+</s:WindowedApplication>

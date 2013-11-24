@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 initialize="group1_initializeHandler(event)"
+		 removed="group1_removedHandler(event)"
+		 width="100%" height="100%" xmlns:local="*" xmlns:Components="csplayer.Components.*">
+	<fx:Script>
+		<![CDATA[
+			import csplayer.Classes.SoundTrack;
+			import csplayer.Components.Playlist.PlayList;
+			
+			import mx.collections.*;
+			import mx.core.FlexGlobals;
+			import mx.events.*;
+			import mx.managers.*;
+			
+			[Bindable]
+			public var soundTracks:ArrayCollection=soundTracks;
+		
+			public static var instance:LibraryView;	
+			
+			/**def constr. loads library.*/
+			protected function group1_initializeHandler(event:FlexEvent):void {
+				//trace("Library:initLibrary")
+				instance=this;
+				soundTracks=Library.instance.soundTracks;
+				gc.refresh(true);
+			}
+			
+			protected function group1_removedHandler(event:Event):void {
+				Library.instance.saveLibrary()	
+			}
+			
+			protected function addFolderBtn_clickHandler(event:MouseEvent):void {
+				//trace("Library:addFolder")
+				var f:File = new File()
+				f.browseForDirectory("Add Folder to Library");
+				f.addEventListener(Event.SELECT, function (e:Event):void {
+					Library.instance.addFolder(e.target as File)
+				})
+			}
+			
+			/**saves state of arraylist to ensure copying instead of moving while dragging*/
+			private var tmpDp:ArrayList=new ArrayList()
+			protected function adg1_dragStartHandler(event:DragEvent):void {
+				//trace("Library:dragStart")
+				tmpDp=new ArrayList()
+				for (var i:int=0; i<soundTracks.length; i++){
+					tmpDp.addItem(soundTracks.getItemAt(i))
+				}
+			}
+			
+			/**loads temp file created at start drag to ensure copying instead of moving while dragging*/
+			protected function adg1_dragCompleteHandler(event:DragEvent):void {
+				//trace("Library:dragComplete")
+				
+				//ezt itt töröltük vmiért, kikommenteztem..
+				//soundTracks=new ArrayCollection()
+				for (var i:int=0; i<tmpDp.length;i++){
+					soundTracks.addItem(tmpDp.getItemAt(i))
+				}
+			}
+			
+			public function findByUrl(urlString:String):SoundTrack{
+				//trace("Library:findByUrl")
+				for (var i:int=0; i<soundTracks.length;i++){
+					if((soundTracks.getItemAt(i) as SoundTrack).urlString.match(urlString)) return soundTracks.getItemAt(i) as SoundTrack
+				}
+				return null;
+			}
+			
+			protected function adg1_doubleClickHandler(event:MouseEvent):void {
+				//trace("Library:doubleClick")
+				if(adg1.selectedItem is SoundTrack) FlexGlobals.topLevelApplication.playListComponent.add(adg1.selectedItem)
+				else {
+					var a:ArrayCollection=adg1.selectedItem.children
+					//var a:Vector.<Object>=dg.selectedItems;
+					for each(var st:SoundTrack in a) PlayList.instance.add(st)
+				}
+			}
+			
+			
+		]]>
+	</fx:Script>
+	<mx:VBox left="0" right="0" top="0" bottom="0">
+		<s:Group width="100%" height="100%">
+			<mx:AdvancedDataGrid id="adg1" left="0" right="42" height="100%"
+								 allowMultipleSelection="true" 
+								 doubleClick="adg1_doubleClickHandler(event)"
+								 doubleClickEnabled="true" dragComplete="adg1_dragCompleteHandler(event)"
+								 dragEnabled="true" draggableColumns="true" dragMoveEnabled="true"
+								 dragStart="adg1_dragStartHandler(event)" selectionMode="multipleRows"><!--dataProvider="{soundTracks}" -->
+				<mx:dataProvider>
+					<mx:GroupingCollection2 id="gc" source="{soundTracks}" >
+						<mx:Grouping>
+							<mx:GroupingField name="artist" />
+							
+						</mx:Grouping>
+					</mx:GroupingCollection2>
+				</mx:dataProvider>
+				<mx:columns>
+					<!--<mx:AdvancedDataGridColumn dataField="artist" headerText="Artist"></mx:AdvancedDataGridColumn>-->
+					<mx:AdvancedDataGridColumn dataField="title" headerText="Artist/Title"></mx:AdvancedDataGridColumn>
+					<mx:AdvancedDataGridColumn dataField="rating" width="65" headerText="rating" itemRenderer="csplayer.Apps.Library.LibraryRatingADGItemRenderer"></mx:AdvancedDataGridColumn>
+					<!--<mx:AdvancedDataGridColumn dataField="urlString" headerText="url"></mx:AdvancedDataGridColumn>-->
+					<mx:AdvancedDataGridColumn dataField="labels" headerText="Labels" itemRenderer="csplayer.Apps.Library.LibraryLabelsItemRenderer"></mx:AdvancedDataGridColumn>
+					
+				</mx:columns>
+			</mx:AdvancedDataGrid>
+			
+			<s:Image right="12" top="10" width="18" height="18"
+					 click="addFolderBtn_clickHandler(event)" smooth="true"
+					 source="icons/1342644105_folder_plus.png" toolTip="add folder"/>
+			<s:Image right="10" top="36" width="24" height="24" click="Library.instance.clearLibrary()" smooth="true"
+					 source="icons/1342554922_recycle.png" toolTip="clear library"/>
+			<!--<s:DataGrid id="dg" left="0" right="40" top="0" bottom="0" requestedRowCount="4" doubleClick="adg1_doubleClickHandler(event)" doubleClickEnabled="true" selectionMode="multipleRows" dataProvider="{soundTracks}">
+				<s:columns>
+					<s:ArrayList>
+						<s:GridColumn dataField="title" headerText="Title"  ></s:GridColumn>
+						<s:GridColumn dataField="rating" headerText="Rating"  ></s:GridColumn>
+						<s:GridColumn dataField="labels" headerText="Labels"  ></s:GridColumn>
+					</s:ArrayList>
+				</s:columns>
+			</s:DataGrid>-->
+		</s:Group>
+		<Components:LabelsRenderer data="{adg1.selectedItems}" width="100%" />
+	</mx:VBox>
+</s:Group>

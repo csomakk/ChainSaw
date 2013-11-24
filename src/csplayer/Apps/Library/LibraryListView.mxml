@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns="library://ns.adobe.com/flex/spark"
+		 creationComplete="group1_creationCompleteHandler(event)"
+		 width="100%" height="100%" >
+	<fx:Script>
+		<![CDATA[
+        import csplayer.Apps.SongEdit;
+        import csplayer.Classes.SoundTrack;
+        import csplayer.Components.Playlist.PlayList;
+
+        import mx.collections.ArrayCollection;
+        import mx.collections.ArrayList;
+        import mx.events.CollectionEvent;
+        import mx.events.DragEvent;
+        import mx.events.FlexEvent;
+        import mx.managers.PopUpManager;
+
+        import spark.events.IndexChangeEvent;
+
+        [Bindable]
+        public var dp:ArrayCollection;
+
+        protected function group1_creationCompleteHandler(event:FlexEvent):void {
+            Library.instance.soundTracks.addEventListener(CollectionEvent.COLLECTION_CHANGE, onDPChange);
+            onDPChange();
+        }
+
+        protected function onDPChange(event:CollectionEvent = null):void {
+
+            dp = new ArrayCollection();
+            var st:ArrayCollection = Library.instance.soundTracks;
+            var currentArtist:String = "";
+            var currentSeparator:LibraryListViewSeparator;
+            var currentSong:SoundTrack;
+
+            //TODO Sort!
+
+
+            for (var i:int = 0; i < st.length; i++) {
+                currentSong = st[i];
+                if (currentSong.artist != currentArtist) {
+                    currentSeparator = new LibraryListViewSeparator(currentSong.artist);
+                    dp.addItem(currentSeparator);
+                    currentArtist = currentSong.artist;
+                }
+                dp.addItem(currentSong);
+                currentSeparator.songs.push(currentSong);
+            }
+
+        }
+
+        protected function addFolderBtn_clickHandler(event:MouseEvent):void {
+            var f:File = new File();
+            f.browseForDirectory("Add Folder to Library");
+            f.addEventListener(Event.SELECT, function (e:Event):void {
+                Library.instance.addFolder(e.target as File);
+            })
+        }
+
+        private var tmpDp:ArrayList = new ArrayList();
+
+        protected function adg1_dragStartHandler(event:DragEvent):void {
+            //trace("Library:dragStart")
+            tmpDp = new ArrayList();
+            for (var i:int = 0; i < dp.length; i++) {
+                tmpDp.addItem(dp.getItemAt(i));
+            }
+        }
+
+        protected function adg1_doubleClickHandler(event:MouseEvent):void {
+            //trace("Library:doubleClick")
+            if (list.selectedItem is SoundTrack) PlayList.instance.add(list.selectedItem);
+            if (list.selectedItem is LibraryListViewSeparator) {
+                for each(var st:SoundTrack in (list.selectedItem as LibraryListViewSeparator).songs) {
+                    PlayList.instance.add(st);
+                }
+            }
+        }
+
+        protected function adg1_dragCompleteHandler(event:DragEvent):void {
+            //trace("Library:dragComplete")
+
+            //ezt itt töröltük vmiért.. asszem azért, mert ilyenkor lesz jó, és nem törli ki a dragfrom helyéről.
+            dp = new ArrayCollection();
+            for (var i:int = 0; i < tmpDp.length; i++) {
+                dp.addItem(tmpDp.getItemAt(i));
+            }
+        }
+
+        protected function list_changeHandler(event:IndexChangeEvent):void {
+            //trace("LibraryListView: change", list.selectedIndex)
+        }
+
+        protected function list_changingHandler(event:IndexChangeEvent):void {
+            //trace("LibraryListView: changeing", list.selectedIndex)
+        }
+
+        protected function edit_clickHandler(event:MouseEvent):void {
+            var edit:SongEdit = new SongEdit;
+
+            if (list.selectedItem is SoundTrack) {
+                edit.setSoundTrack(list.selectedItem as SoundTrack);
+            }
+            PopUpManager.centerPopUp(edit);
+            PopUpManager.addPopUp(edit, this);
+        }
+
+        protected function search(event:FlexEvent):void {
+            dp.filterFunction = filterFirst;
+            dp.refresh();
+
+        }
+
+        private function filterFirst(item:Object):Boolean {
+            if (item is LibraryListViewSeparator) {
+                return true;
+            }
+            var arr:Array = (item as SoundTrack).title.match(new RegExp(searchInput.text, 'i'));
+            return arr;
+
+        }
+        ]]>
+	</fx:Script>
+	<Rect width="100%" height="100%">
+		<stroke><SolidColorStroke color="0xCCCCCC" weight="1"/></stroke>
+	</Rect>
+	<Rect left="160" right="0" height="40">
+		<stroke><SolidColorStroke color="0xCCCCCC" weight="1"/></stroke>
+	</Rect>
+	<Rect left="161" right="0" height="40">
+		<fill><SolidColor color="0xFFFFFF" /></fill>
+	</Rect>
+	<List id="list" left="1" right="1" top="41" bottom="1" allowMultipleSelection="true"
+			borderVisible="false" 
+			change="list_changeHandler(event)"
+			changing="list_changingHandler(event)" 
+			dataProvider="{dp}" 
+			doubleClick="adg1_doubleClickHandler(event)" 
+			doubleClickEnabled="true"
+			dragComplete="adg1_dragCompleteHandler(event)" 
+			dragEnabled="true" 
+			dragMoveEnabled="true"
+			dragStart="adg1_dragStartHandler(event)"
+			itemRenderer="csplayer.Apps.Library.LibraryListViewItemRenderer"/>
+	<Image x="172" top="11" width="18" height="18" click="addFolderBtn_clickHandler(event)"
+			 smooth="true" source="icons/1342644105_folder_plus.png" toolTip="add folder"/>
+	<Image x="198" top="10" width="24" height="24" click="Library.instance.clearLibrary()"
+			 smooth="true" source="icons/1342554922_recycle.png" toolTip="clear library"/>
+	<Image x="230" top="9" width="24" height="24" click="PlayList.instance.shuffleAll()"
+			 smooth="true" source="icons/1342554885_power_lightning.png" toolTip="Shuffle all"/>
+	<Image x="262" top="10" width="24" height="24" click="edit_clickHandler(event)"
+			 smooth="true" source="icons/1342554841_edit_pencil.png" toolTip="Edit"/>
+	<Label x="10" y="10" fontSize="24" fontWeight="bold" text="Library"/>
+	<TextInput id="searchInput"
+				 right="10" top="10"
+				 enter="search(event)"/>
+</Group>

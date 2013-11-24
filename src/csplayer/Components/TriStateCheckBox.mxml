@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns="library://ns.adobe.com/flex/spark"
+        >
+	
+	<fx:Script>
+		<![CDATA[
+        import csplayer.Classes.CsPlayerEvents;
+
+        public static const BOX_CHECKED:int = 1;
+        public static const BOX_UNDECIDED:int = -1;
+        public static const BOX_UNCHECKED:int = 0;
+        [Bindable]
+        public var boxVisible:Boolean = true;
+        [Bindable]
+        public var enum_id:int = -1;
+        private var _boxState:int = 0;
+
+
+        public function get boxState():int {
+            if (checkbox.selected)
+                return BOX_CHECKED;
+            else if (undecidedImg.visible)
+                return BOX_UNDECIDED;
+            return BOX_UNCHECKED;
+        }
+
+        public function set boxState(value:int):void {
+            _boxState = value;
+            if (value == -1) {
+                boxVisible = false;
+            } else {
+                boxVisible = true;
+                checkbox.selected = (value == 1);
+            }
+        }
+
+        protected function image_clickHandler(event:MouseEvent):void {
+            boxVisible = true;
+            dispatchEvent(new Event(CsPlayerEvents.TRISTATE_CHECKBOX_CHANGE, true))
+        }
+
+        protected function checkbox_clickHandler(event:MouseEvent):void {
+            dispatchEvent(new Event(CsPlayerEvents.TRISTATE_CHECKBOX_CHANGE, true))
+        }
+        ]]>
+	</fx:Script>
+
+	<CheckBox id="checkbox" click="checkbox_clickHandler(event)" visible="{boxVisible}" includeInLayout="{boxVisible}"/>
+	<Image id="undecidedImg" source="@Embed('/icons/checkbox.gif')"
+			 width="16" height="16"
+			 click="image_clickHandler(event)" 
+			 visible="{!boxVisible}" includeInLayout="{!boxVisible}"/>
+</Group>

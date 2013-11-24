@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+		  initialize="hgroup1_initializeHandler(event)"
+		  xmlns:s="library://ns.adobe.com/flex/spark"
+		  xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import csplayer.Classes.SoundTrack;
+			
+			
+			[Bindable] 
+			private var isvisible:Boolean=true;
+			[Bindable] 
+			public var modifiersOnRollover:Boolean=false;
+			[Bindable] 
+			public var modifiersVisible:Boolean=true;
+			private var t:Timer=new Timer(200,0);
+			[Bindable]
+			public var soundTrack:SoundTrack;
+			
+			
+			protected function ratingsMinus(event:Event=null):void {
+				soundTrack.rating--;
+			}
+			
+			protected function ratingsPlus(event:Event=null):void {
+				soundTrack.rating++
+			}
+			
+			protected function minus_mouseDownHandler(event:MouseEvent):void {
+				ratingsMinus()
+				t.addEventListener(TimerEvent.TIMER, ratingsMinus)
+				t.start()
+			}
+			
+			protected function minus_mouseUpHandler(event:MouseEvent):void {
+				t.removeEventListener(TimerEvent.TIMER, ratingsMinus)
+				t.stop()
+			}
+			
+			protected function plus_mouseDownHandler(event:MouseEvent):void {
+				ratingsPlus()
+				t.addEventListener(TimerEvent.TIMER, ratingsPlus)
+				t.start()
+			}
+			
+			protected function plus_mouseUpHandler(event:MouseEvent):void {
+				t.removeEventListener(TimerEvent.TIMER, ratingsPlus)
+				t.stop()
+			}
+			
+			public function modifiersOnlyOnRollover():void {
+				modifiersOnRollover=true;
+				
+			}
+			
+			protected function onOver(event:MouseEvent):void {
+				if(modifiersOnRollover) modifiersVisible=true
+				trace("Rating: onover")
+			}
+			
+			protected function onOut(event:MouseEvent):void {
+				if(modifiersOnRollover) modifiersVisible=false
+				trace("Rating: onout")
+			}
+			
+			
+			
+			protected function hgroup1_initializeHandler(event:FlexEvent):void {
+				addEventListener(MouseEvent.MOUSE_OVER, onOver);
+				addEventListener(MouseEvent.MOUSE_OUT, onOut);
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<s:Image visible="{modifiersVisible}" width="12" height="12" mouseOut="minus_mouseUpHandler(event)" mouseDown="minus_mouseDownHandler(event)" mouseUp="minus_mouseUpHandler(event)" source="icons/minus.png"/>
+	<s:Label id="lblData" width="26" text="{soundTrack.rating}" textAlign="center"/>
+	<s:Image visible="{modifiersVisible}" width="12" height="12" mouseOut="plus_mouseUpHandler(event)" mouseDown="plus_mouseDownHandler(event)" mouseUp="plus_mouseUpHandler(event)" source="icons/plus.png"/>
+	
+</s:HGroup>

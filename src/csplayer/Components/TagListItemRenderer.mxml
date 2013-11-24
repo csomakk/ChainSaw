@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				color="{col1}"
+				xmlns:s="library://ns.adobe.com/flex/spark"  
+				xmlns:mx="library://ns.adobe.com/flex/mx" dataChange="itemrenderer1_dataChangeHandler(event)" 
+				mouseOver="itemrenderer1_mouseOverHandler(event)"
+				mouseOut="itemrenderer1_mouseOutHandler(event)"
+				
+				autoDrawBackground="true">
+	<fx:Script>
+		<![CDATA[
+			import csplayer.Apps.Library.Library;
+			import csplayer.Classes.Tag;
+			import csplayer.Components.Playlist.PlayList;
+			import csplayer.Containers.MainContainer;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			[Bindable] protected var col1:uint=0x000000;
+			[Bindable] protected var txtcolor:uint=0xFFFFFF;
+			[Bindable] public var showOptions:Boolean=false;
+			
+			protected function itemrenderer1_dataChangeHandler(event:FlexEvent):void {
+				lbl.text=(data as Tag).nameWithoutSpecs();
+				col1=(data as Tag).color1;
+				txtcolor=(data as Tag).textColor;
+			}
+			
+			protected function itemrenderer1_mouseOverHandler(event:MouseEvent):void {
+				showOptions=true;
+			}
+			
+			protected function itemrenderer1_mouseOutHandler(event:MouseEvent):void {
+				showOptions=false;
+			}
+			
+			protected function playNow_clickHandler(event:MouseEvent):void {
+				var ac:ArrayCollection=Library.instance.getAllWithTag(data as Tag);
+				PlayList.instance.playlist=ac;
+				PlayList.instance.currentSong=0;
+				Control.instance.play();
+			}
+			
+			protected function addToPlaylist_clickHandler(event:MouseEvent):void {
+				var ac:ArrayCollection=Library.instance.getAllWithTag(data as Tag);
+				PlayList.instance.playlist.addAll(ac);
+			}
+			
+			protected function tagSettings_clickHandler(event:MouseEvent):void {
+			
+				var tagSettings:TagSettingsPopup=new TagSettingsPopup()
+				tagSettings.x=200;
+				tagSettings.y=200;
+				MainContainer.instance.addElement(tagSettings);
+				tagSettings.tag=data as Tag
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<s:Rect x="1" y="1" width="10" height="10">
+		<s:fill><s:SolidColor color="{col1}" /></s:fill>
+	</s:Rect>
+	<s:Rect x="5" y="5" width="2" height="2">
+		<s:fill><s:SolidColor color="{txtcolor}" /></s:fill>
+	</s:Rect>
+	<s:Label id="lbl" width="90" x="13" y="0" color="0x000000" text="" textAlign="left" verticalAlign="middle"/>
+	<s:Image y="0" right="13" width="12" height="12" smooth="true" toolTip="play now"
+			 source="icons/1342643947_playback_play.png" click="playNow_clickHandler(event)" visible="{showOptions}"/>
+	<s:Image y="0" right="28" width="12" height="12" smooth="true" visible="{showOptions}"
+			 source="icons/1342894009_monotone_add_plus_round.png" click="addToPlaylist_clickHandler(event)" toolTip="add to playlist"/>
+	<s:Image y="0" right="0" width="12" height="12" smooth="true"  visible="{showOptions}"
+			 source="icons/1342893898_monotone_cog_settings_gear.png" click="tagSettings_clickHandler(event)" toolTip="customise label"/>
+	
+	
+</s:ItemRenderer>

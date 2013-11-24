@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="212" height="300"
+		 title="{_tag.nameWithoutSpecs()}">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.ColorPickerEvent;
+			import mx.managers.PopUpManager;
+			
+			import spark.components.Group;
+			
+			import csplayer.Classes.Tag;
+			
+			[Bindable] private var _tag:Tag;
+			
+			private var object:Object=new Object();
+			
+			public static const colorsArray:Array = ['0x000000', '0xFF0000', '0xFF8800',
+				'0xFFFF00', '0x88FF00', '0x00FF00', '0x00FF88', '0x00FFFF', 
+				'0x0088FF', '0x0000FF', '0x8800FF', '0xFF00FF', '0xFFFFFF'];
+
+			public function set tag(value:Tag):void {
+				_tag = value;
+				cp1.selectedColor=_tag.color1
+				cp2.selectedColor=_tag.color2
+				cp3.selectedColor=_tag.textColor
+			}
+			
+			public function close(e:Event=null):void {
+				try {
+					(parent as Group).removeElement(this);
+				} catch (err:Error) {
+					PopUpManager.removePopUp(this);
+				}
+			}
+			
+			protected function cp1_changeHandler(event:ColorPickerEvent):void {
+				_tag.color1=event.color
+			}
+			
+			protected function cp2_changeHandler(event:ColorPickerEvent):void {
+				_tag.color2=event.color
+			}
+			
+			protected function cp3_changeHandler(event:ColorPickerEvent):void {
+				_tag.textColor=event.color
+			}
+			
+		]]>
+	</fx:Script>
+	<s:Image right="6" top="-24" width="19" height="19" 
+			 click="close(event)" 
+			 smooth="true"
+			 source="icons/1341143725_cancel.png"/>
+	<s:Label x="10" y="10" text="Options for this tag:"/>
+	<mx:ColorPicker id="cp1" 
+					x="116" y="37" 
+					dataProvider="{colorsArray}" 
+					colorField="color1" 
+					change="cp1_changeHandler(event)" />
+	<mx:ColorPicker id="cp2" 
+					x="116" y="67" 
+					dataProvider="{colorsArray}" 
+					colorField="color2" 
+					change="cp2_changeHandler(event)" />
+	<mx:ColorPicker id="cp3" 
+					x="116" y="97"  
+					dataProvider="{colorsArray}" 
+					colorField="textColor" 
+					change="cp3_changeHandler(event)" />
+	<s:Label x="30" y="41" text="Background:"/>
+	<s:Label x="30" y="103" text="TextColor:"/>
+	<s:Label x="30" y="72" color="#9E9E9E" fontStyle="italic" text="Background2:"/>
+	<s:CheckBox x="30" y="128" selected="@{_tag.shuffleAllDisabled}" label="skip on shuffle all"/>
+</s:Panel>

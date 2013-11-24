@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+         xmlns="library://ns.adobe.com/flex/spark"
+         width="498" creationComplete="group1_creationCompleteHandler(event)"
+         deactivate="group1_removedHandler(event)">
+    <fx:Script>
+		<![CDATA[
+        import csplayer.Apps.Library.Library;
+        import csplayer.Classes.CsUtils;
+        import csplayer.Classes.SoundTrack;
+        import csplayer.Classes.Tag;
+        import csplayer.Classes.TagManager;
+        import csplayer.Components.AddTagPopup;
+        import csplayer.Components.Control;
+        import csplayer.Components.SettingsPopup;
+
+        import mx.collections.ArrayCollection;
+        import mx.core.FlexGlobals;
+        import mx.events.FlexEvent;
+
+        [Bindable]
+        public var playlist:ArrayCollection = new ArrayCollection();
+        [Bindable]
+        public var currentSong:int = 0;
+        [Bindable]
+        public static var instance:PlayList;
+
+        public function add(item:Object):void {
+            //item.playListPosition=playlist.length;
+            playlist.addItem(item);
+            if (playlist.length == 1 && currentSong < 1) {
+                FlexGlobals.topLevelApplication.mainContainer.control.play();
+            }
+        }
+
+        public function shuffleAll():void {
+            clear();
+            playlist.addAll(Library.instance.soundTracks);
+            currentSong = Math.random() * playlist.length;
+            for (var i:int = playlist.length - 1; i > -1; i--) {
+                var st:SoundTrack = playlist[i] as SoundTrack;
+                var remove:Boolean = false;
+                for each(var tag:Tag in st.labels) {
+                    if (tag.shuffleAllDisabled) remove = true;
+                }
+                if (remove) playlist.removeItemAt(i);
+            }
+
+            shuffle();
+        }
+
+        public function whenHasSameURLReplaceIt(songToFind:SoundTrack):void {
+            for (var i:int = 0; i < playlist.length; i++) {
+                if (playlist[i].urlString == songToFind.urlString) {
+                    playlist[i] = songToFind;
+                    if (currentSong == i) Control.instance.currentSong = playlist[i];
+                }
+
+            }
+        }
+
+        public function remove(index:int):void {
+
+            playlist.removeItemAt(index);
+            if (currentSong == index) {
+                FlexGlobals.topLevelApplication.mainContainer.control.play(); //elkezdi a következőt, ami most a helyén van
+            }
+        }
+
+        protected function clear(event:MouseEvent = null):void {
+            playlist = new ArrayCollection()
+        }
+
+        public function next():SoundTrack {
+            currentSong++;
+            if (currentSong >= playlist.length) currentSong = 0;
+            return playlist.getItemAt(currentSong) as SoundTrack;
+        }
+
+        public function prev():SoundTrack {
+            currentSong--;
+            if (currentSong < 0) currentSong = playlist.length - 1;
+            return playlist.getItemAt(currentSong) as SoundTrack;
+        }
+
+        public function current():SoundTrack {
+            if (currentSong >= playlist.length) return null;
+            return playlist.getItemAt(currentSong) as SoundTrack;
+        }
+
+
+        protected function list1_doubleClickHandler(event:MouseEvent):void {
+            currentSong = list.selectedIndex;
+            FlexGlobals.topLevelApplication.mainContainer.control.play();
+        }
+
+        public function savePlaylist():void {
+            var file:File = File.applicationStorageDirectory;
+            file = file.resolvePath("playlist.xml");
+            var xml:XML = new XML("<playlist/>");
+            var curr:XML = new XML("<current>" + currentSong + "</current>");
+            xml.appendChild(curr);
+            var isPlaying:XML = new XML("<isPlaying>" + Control.instance.isSoundPlaying + "</isPlaying>");
+            xml.appendChild(isPlaying);
+            for (var i:String in playlist) {
+                xml.appendChild(playlist[i].convertToXML());
+            }
+            CsUtils.saveAsXML(xml, file.url)
+        }
+
+        public function loadPlaylist():void {
+            var file:File = File.applicationStorageDirectory;
+            var isSoundplaying:Boolean;
+            file = file.resolvePath("playlist.xml");
+            if (file.exists) {
+                var xml:XML = CsUtils.loadXML(file.url);
+                if (xml != null) {
+                    currentSong = xml.current;
+                    isSoundplaying = (xml.isPlaying == "true");
+                    for each (var node:XML in xml.soundTrack) {
+                        var st:SoundTrack = new SoundTrack();
+                        st.title = node.title;
+                        st.rating = node.rating;
+                        st.artist = node.artist;
+                        st.urlString = node.urlString;
+                        add(st);
+                        Control.instance.stop();
+                    }//for each node
+                }//if !=null
+            }//if file exists
+
+            if (playlist.length > 0) {
+                trace("PlayList.loadPlaylist", SettingsPopup.instance.onStartup);
+                if (SettingsPopup.instance.onStartup == 0) Control.instance.play();
+                if (SettingsPopup.instance.onStartup == 1 && isSoundplaying) Control.instance.play();
+
+                //TODO scroll there
+            }
+
+
+        }//loadPlaylist()
+
+
+        protected function group1_creationCompleteHandler(event:FlexEvent):void {
+            instance = this;
+            loadPlaylist()
+        }
+
+        protected function group1_removedHandler(event:Event):void {
+            savePlaylist()
+        }
+
+        protected function list_keyDownHandler(event:KeyboardEvent):void {
+            var i:int;
+
+            if (event.keyCode == Keyboard.DELETE) {
+                for (i = list.selectedIndices.length - 1; i > -1; i--) remove(list.selectedIndices[i])
+            }
+
+            if (event.keyCode == Keyboard.A && event.ctrlKey) {
+                var vec:Vector.<int> = new Vector.<int>();
+                for (i = 0; i < playlist.length; i++) {
+                    vec.push(i);
+                }
+                list.selectedIndices = vec;
+            }
+        }
+
+        protected function shuffle(event:MouseEvent = null):void {
+            var shuffled:ArrayCollection = new ArrayCollection(); //ezt adjuk vissza, ez lesz a kevert
+            var curr:Object = playlist.getItemAt(currentSong); //az aktuális elem mindig elől marad
+            playlist.removeItemAt(currentSong); //kivesszük a mostanilistát.
+            while (playlist.length > 0) {
+                var rnd:Number = Math.round(Math.random() * (playlist.length - 1));
+                shuffled.addItem(playlist.getItemAt(rnd));
+                playlist.removeItemAt(rnd);
+            }
+
+            playlist.addItem(curr); //nem add(), mert akkor újrakezdené a számot a len=1 miatt.
+
+            currentSong = 0;
+            for (var i:String in shuffled) {
+                add(shuffled[i]);
+            }
+
+        }
+
+        protected function addLabel_clickHandler(event:MouseEvent):void {
+            var addtag:AddTagPopup = new AddTagPopup();
+            addElement(addtag);
+            addtag.setSoundTrack(playlist);
+            for (var j:int = 0; j < TagManager.instance.tags.length; j++) {
+                addtag.addTag(TagManager.instance.tags[j]);
+            }
+        }
+        ]]>
+	</fx:Script>
+	<Rect width="100%" height="100%">
+		<stroke><SolidColorStroke color="0xCCCCCC" weight="1"/></stroke>
+	</Rect>
+	<Rect left="160" right="0" height="40">
+		<stroke><SolidColorStroke color="0xCCCCCC" weight="1"/></stroke>
+	</Rect>
+	<Rect left="161" right="0" height="40">
+		<fill><SolidColor color="0xFFFFFF" /></fill>
+	</Rect>
+	<List id="list" left="1" right="1" top="41" bottom="1" allowMultipleSelection="true"
+			borderVisible="false" dataProvider="{playlist}"
+			doubleClick="list1_doubleClickHandler(event)" doubleClickEnabled="true"
+			dragEnabled="true" dragMoveEnabled="true" dropEnabled="true"
+			itemRenderer="csplayer.Components.Playlist.PlayListItemRenderer"
+			keyDown="list_keyDownHandler(event)"/>
+	<Image x="167" top="9" width="24" height="24" click="shuffle()" smooth="true"
+			 source="icons/1342554918_shuffle.png" toolTip="shuffle"/>
+	<Image x="196" top="10" width="24" height="24" click="clear()" smooth="true"
+			 source="icons/1342554922_recycle.png" toolTip="clear"/>
+	<Image x="223" top="6" width="24" height="30" click="addLabel_clickHandler(event)"
+			 smooth="true" source="icons/1342554926_tag.png"
+			 toolTip="add Label to all tracks in playlist"/>
+	<Label x="10" y="10" fontSize="24" fontWeight="bold" text="Playlist"/>
+</Group>

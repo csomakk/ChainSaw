@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" creationComplete="group1_creationCompleteHandler(event)"
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			protected function group1_creationCompleteHandler(event:FlexEvent):void {
+				myFileSystemDataGrid.columns = [ 	myFileSystemDataGrid.nameColumn,
+													myFileSystemDataGrid.typeColumn,
+													myFileSystemDataGrid.sizeColumn ];
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<mx:FileSystemDataGrid id="myFileSystemDataGrid" left="10" right="10" top="69" bottom="10" enabled="true" 
+						   showExtensions="true" showHidden="false" showIcons="true"   >
+		<mx:extensions>
+			<fx:String>mp3</fx:String>
+		</mx:extensions>
+	</mx:FileSystemDataGrid>
+	<s:Label x="10" y="10" text="on double click:"/>
+	<s:CheckBox id="addToPlaylist" x="115" y="5" label="Add to playlist" selected="true"/>
+	<s:CheckBox id="addToLibrary" x="224" y="5" label="Add to library"/>
+</s:Group>

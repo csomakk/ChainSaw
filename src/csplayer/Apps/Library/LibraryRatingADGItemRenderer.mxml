@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:MXAdvancedDataGridItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+								  xmlns:s="library://ns.adobe.com/flex/spark" 
+								  xmlns:mx="library://ns.adobe.com/flex/mx"
+								  dataChange="mxadvanceddatagriditemrenderer1_dataChangeHandler(event)"
+								  focusEnabled="true" xmlns:Components="csplayer.Components.*">
+	<fx:Script>
+		<![CDATA[
+			import csplayer.Classes.SoundTrack;
+			
+			import mx.events.FlexEvent;
+		
+			protected function mxadvanceddatagriditemrenderer1_dataChangeHandler(event:FlexEvent):void {
+				rating.soundTrack=data as SoundTrack;
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<Components:Rating id="rating" />
+</s:MXAdvancedDataGridItemRenderer>
