@@ -51,7 +51,7 @@
     <s:Image right="6" top="-24" width="19" height="19"
              click="close(event)"
              smooth="true"
-             source="icons/1341143725_cancel.png"/>
+             source="@Embed('/assets/icons/1341143725_cancel.png')"/>
     <s:Label x="10" y="10" text="Options for this tag:"/>
     <mx:ColorPicker id="cp1"
                     x="116" y="37"

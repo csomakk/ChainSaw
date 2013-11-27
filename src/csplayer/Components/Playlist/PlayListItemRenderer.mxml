@@ -9,8 +9,8 @@
         ]]>
 	</fx:Script>
     <mx:HBox width="100%">
-        <s:Image visible="{itemIndex == PlayList.instance.currentSong}"
-                 source="icons/1342556059_playsound.png"/>
+        <s:Image visible="{ itemIndex == PlayList.instance.currentSong }"
+                 source="@Embed('/assets/icons/1342556059_playsound.png')"/>
         <s:Label width="22" height="100%" text="{itemIndex}" textAlign="right" verticalAlign="middle"/>
         <s:Label width="60%"
                  height="100%"

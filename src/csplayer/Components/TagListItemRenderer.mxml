@@ -73,12 +73,14 @@
     </s:Rect>
     <s:Label id="lbl" width="90" x="13" y="0" color="0x000000" text="" textAlign="left" verticalAlign="middle"/>
     <s:Image y="0" right="13" width="12" height="12" smooth="true" toolTip="play now"
-             source="icons/1342643947_playback_play.png" click="playNow_clickHandler(event)" visible="{showOptions}"/>
-    <s:Image y="0" right="28" width="12" height="12" smooth="true" visible="{showOptions}"
-             source="icons/1342894009_monotone_add_plus_round.png" click="addToPlaylist_clickHandler(event)"
+             source="@Embed('/assets/icons/1342643947_playback_play.png')" click="playNow_clickHandler(event)" visible="{showOptions}"/>
+    <s:Image y="0" right="28" width="12" height="12" smooth="true" visible="{ showOptions }"
+             source="@Embed('/assets/icons/1342894009_monotone_add_plus_round.png')"
+             click="addToPlaylist_clickHandler(event)"
              toolTip="add to playlist"/>
-    <s:Image y="0" right="0" width="12" height="12" smooth="true" visible="{showOptions}"
-             source="icons/1342893898_monotone_cog_settings_gear.png" click="tagSettings_clickHandler(event)"
+    <s:Image y="0" right="0" width="12" height="12" smooth="true" visible="{ showOptions }"
+             source="@Embed('/assets/icons/1342893898_monotone_cog_settings_gear.png')"
+             click="tagSettings_clickHandler(event)"
              toolTip="customise label"/>
 
 

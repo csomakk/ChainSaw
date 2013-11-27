@@ -72,10 +72,16 @@
         }
         ]]>
 	</fx:Script>
-    <s:Image visible="{modifiersVisible}" width="12" height="12" mouseOut="minus_mouseUpHandler(event)"
-             mouseDown="minus_mouseDownHandler(event)" mouseUp="minus_mouseUpHandler(event)" source="icons/minus.png"/>
+    <s:Image visible="{modifiersVisible}" width="12" height="12"
+             mouseOut="minus_mouseUpHandler(event)"
+             mouseDown="minus_mouseDownHandler(event)"
+             mouseUp="minus_mouseUpHandler(event)"
+             source="@Embed('/assets/icons/minus.png')"/>
     <s:Label id="lblData" width="26" text="{soundTrack.rating}" textAlign="center"/>
-    <s:Image visible="{modifiersVisible}" width="12" height="12" mouseOut="plus_mouseUpHandler(event)"
-             mouseDown="plus_mouseDownHandler(event)" mouseUp="plus_mouseUpHandler(event)" source="icons/plus.png"/>
+    <s:Image visible="{modifiersVisible}" width="12" height="12"
+             mouseOut="plus_mouseUpHandler(event)"
+             mouseDown="plus_mouseDownHandler(event)"
+             mouseUp="plus_mouseUpHandler(event)"
+             source="@Embed('/assets/icons/plus.png')"/>
 
 </s:HGroup>

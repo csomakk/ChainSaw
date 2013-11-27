@@ -93,19 +93,19 @@
     <Label id="current" y="10" left="131" fontSize="15" fontWeight="bold" text="Label"/>
     <Label id="seekText" x="5" bottom="3" width="70" text="0:00 / 3:21" textAlign="center"/>
     <Image toolTip="pause" click="pause()" visible="{paused==-1}" x="50" y="6"
-           source="icons/1342554996_Pause Blue Button.png"/>
+           source="@Embed('/assets/icons/1342554996_Pause Blue Button.png')"/>
     <Image visible="{paused!=-1}" x="50" top="6" click="play()"
-           source="icons/1342554978_Play Blue Button.png" toolTip="play"/>
-    <Image x="10" top="4" click="prevSong()" source="icons/1342556807_Previous-Track.png"
+           source="@Embed('/assets/icons/1342554978_Play Blue Button.png" toolTip="play"/>
+    <Image x="10" top="4" click="prevSong()" source="@Embed('/assets/icons/1342556807_Previous-Track.png')"
            toolTip="previous"/>
-    <Image x="83" top="4" click="nextSong()" source="icons/1342556816_Next-Track.png"
+    <Image x="83" top="4" click="nextSong()" source="@Embed('/assets/icons/1342556816_Next-Track.png')"
            toolTip="next"/>
     <Components:LabelsRenderer x="126" y="25" width="319" data="{currentSong}"/>
     <Image y="3" right="118" width="17" height="17" smooth="true" click="onSettingsClick(event)"
-           source="icons/1342893898_monotone_cog_settings_gear.png" toolTip="settings"/>
+           source="@Embed('/assets/icons/1342893898_monotone_cog_settings_gear.png')" toolTip="settings"/>
     <Image y="3" right="136" width="17" height="17" smooth="true"
-           source="icons/1342554931_sound.png" toolTip="amplification"/>
-    <Image y="5" right="155" width="14" height="14" smooth="true" source="icons/1342644079_mail.png"
+           source="@Embed('/assets/icons/1342554931_sound.png')" toolTip="amplification"/>
+    <Image y="5" right="155" width="14" height="14" smooth="true" source="@Embed('/assets/icons/1342644079_mail.png')"
            toolTip="bug report / feature request"/>
     <Label id="statusLabel" right="160" top="25" backgroundColor="#FBFBFB" text="Label"
            textAlign="right" verticalAlign="middle"/>

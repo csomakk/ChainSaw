@@ -44,5 +44,5 @@
     <Image y="-25" right="6" width="19" height="19"
            click="close(event)"
            smooth="true"
-           source="icons/1341143725_cancel.png"/>
+           source="@Embed('/assets/icons/1341143725_cancel.png')"/>
 </Panel>

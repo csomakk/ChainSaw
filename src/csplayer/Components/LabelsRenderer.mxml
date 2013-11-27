@@ -154,6 +154,6 @@
         </s:List>
         <s:Label visible="{showMessage}" text="{listdp.length==0 ?'no labels to this track.':''}"/>
         <s:Image visible="{showAddBtn}" x="{list.width}" width="15" height="15"
-                 click="image1_clickHandler(event)" smooth="true" source="icons/plus.png"/>
+                 click="image1_clickHandler(event)" smooth="true" source="@Embed('/assets/icons/plus.png')"/>
     </s:HGroup>
 </s:DataRenderer>

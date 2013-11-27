@@ -83,12 +83,12 @@
 
 
     <s:TextInput id="textInput" x="10" y="10" width="170" enter="textinput1_enterHandler(event)"/>
-    <s:Image y="11" right="8" width="21" height="21" smooth="true" source="icons/search.png"/>
+    <s:Image y="11" right="8" width="21" height="21" smooth="true" source="@Embed('/assets/icons/search.png')"/>
     <s:List id="list"
             dataProvider="{_tags}"
             itemRenderer="csplayer.Components.LabelRenderer2"
             left="10" right="9" top="40" bottom="10">
     </s:List>
     <s:Image y="-25" right="6" width="19" height="19" click="close(event)" smooth="true"
-             source="icons/1341143725_cancel.png"/>
+             source="@Embed('/assets/icons/1341143725_cancel.png')"/>
 </s:Panel>

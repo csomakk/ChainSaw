@@ -216,12 +216,20 @@
           dragEnabled="true" dragMoveEnabled="true" dropEnabled="true"
           itemRenderer="csplayer.Components.Playlist.PlayListItemRenderer"
           keyDown="list_keyDownHandler(event)"/>
-    <Image x="167" top="9" width="24" height="24" click="shuffle()" smooth="true"
-           source="icons/1342554918_shuffle.png" toolTip="shuffle"/>
-    <Image x="196" top="10" width="24" height="24" click="clear()" smooth="true"
-           source="icons/1342554922_recycle.png" toolTip="clear"/>
-    <Image x="223" top="6" width="24" height="30" click="addLabel_clickHandler(event)"
-           smooth="true" source="icons/1342554926_tag.png"
+    <Image x="167" top="9" width="24" height="24"
+           click="shuffle()"
+           smooth="true"
+           source="@Embed('/assets/icons/1342554918_shuffle.png')"
+           toolTip="shuffle"/>
+    <Image x="196" top="10" width="24" height="24"
+           click="clear()"
+           smooth="true"
+           source="@Embed('/assets/icons/1342554922_recycle.png')"
+           toolTip="clear"/>
+    <Image x="223" top="6" width="24" height="30"
+           click="addLabel_clickHandler(event)"
+           smooth="true"
+           source="@Embed('/assets/icons/1342554926_tag.png')"
            toolTip="add Label to all tracks in playlist"/>
     <Label x="10" y="10" fontSize="24" fontWeight="bold" text="Playlist"/>
 </Group>

@@ -112,9 +112,9 @@
 
             <s:Image right="12" top="10" width="18" height="18"
                      click="addFolderBtn_clickHandler(event)" smooth="true"
-                     source="icons/1342644105_folder_plus.png" toolTip="add folder"/>
+                     source="@Embed('/assets/icons/1342644105_folder_plus.png')" toolTip="add folder"/>
             <s:Image right="10" top="36" width="24" height="24" click="Library.instance.clearLibrary()" smooth="true"
-                     source="icons/1342554922_recycle.png" toolTip="clear library"/>
+                     source="@Embed('/assets/icons/1342554922_recycle.png')" toolTip="clear library"/>
             <!--<s:DataGrid id="dg" left="0" right="40" top="0" bottom="0" requestedRowCount="4" doubleClick="adg1_doubleClickHandler(event)" doubleClickEnabled="true" selectionMode="multipleRows" dataProvider="{soundTracks}">
                 <s:columns>
                     <s:ArrayList>
