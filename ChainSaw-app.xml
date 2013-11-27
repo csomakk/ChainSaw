@@ -132,8 +132,8 @@
                 <image48x48>icons/appicon/48.png</image48x48>
                 <image57x57>icons/appicon/57.png</image57x57>
                 <image72x72>icons/  appicon/72.png</image72x72>
-                <image114x114>icons/appicon/114.png</image114x114>
-                <image128x128>/appIcons/128.png</image128x128>		-->
+                <image114x114>icons/appicon/114.png</image114x114>-->
+                <image128x128>/assets/appIcons/128.png</image128x128>
 
     </icon>
 

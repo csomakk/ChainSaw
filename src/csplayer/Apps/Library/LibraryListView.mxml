@@ -117,7 +117,7 @@
                 return true;
             }
             var arr:Array = (item as SoundTrack).title.match(new RegExp(searchInput.text, 'i'));
-            return arr;
+            return !!arr; //cast to Bool
 
         }
         ]]>

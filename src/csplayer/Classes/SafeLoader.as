@@ -8,7 +8,7 @@ public class SafeLoader extends Loader {
     }
 
     override public function get stage():Stage {
-        trace("SafeLoader: giving back false stage")
+        trace("SafeLoader: giving back false stage");
         return null;
     }
 }

@@ -47,7 +47,7 @@
 	</fx:Script>
 
     <CheckBox id="checkbox" click="checkbox_clickHandler(event)" visible="{boxVisible}" includeInLayout="{boxVisible}"/>
-    <Image id="undecidedImg" source="@Embed('/icons/checkbox.gif')"
+    <Image id="undecidedImg" source="@Embed('/assets/icons/checkbox.gif')"
            width="16" height="16"
            click="image_clickHandler(event)"
            visible="{!boxVisible}" includeInLayout="{!boxVisible}"/>

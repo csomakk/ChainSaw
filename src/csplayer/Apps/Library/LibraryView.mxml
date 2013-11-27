@@ -15,7 +15,7 @@
         import mx.events.*;
 
         [Bindable]
-        public var soundTracks:ArrayCollection = soundTracks;
+        public var soundTracks:ArrayCollection//TODO find out why this was here: = soundTracks;
 
         public static var instance:LibraryView;
 

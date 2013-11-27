@@ -170,5 +170,5 @@
                            securityError="swfLoader_securityErrorHandler(event)"/>
     <s:Image id="toggleFullScreenImg" left="0" width="20" height="20"
              click="toggleFullScreen(event)" smooth="true"
-             source="@Embed('/icons/1350159271_gtk-leave-fullscreen.png')" verticalCenter="0"/>
+             source="@Embed('/assets/icons/1350159271_gtk-leave-fullscreen.png')" verticalCenter="0"/>
 </s:Group>
