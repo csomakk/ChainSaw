@@ -13,7 +13,12 @@
           </map>
           <option name="resourceFilesMode" value="ResourcePatterns" />
         </compiler-options>
-        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/ChainSaw-app.xml" package-file-name="ChainSaw" />
+        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/ChainSaw-app.xml" package-file-name="ChainSaw">
+          <files-to-package>
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/assets" />
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/appIcons" path-in-package="appIcons" />
+          </files-to-package>
+        </packaging-air-desktop>
         <packaging-android />
         <packaging-ios />
       </configuration>
