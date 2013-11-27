@@ -1,49 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Panel xmlns:fx="http://ns.adobe.com/mxml/2009"
-		 xmlns="library://ns.adobe.com/flex/spark"
-		 xmlns:Components="csplayer.Components.*"
-		 width="354" height="300" title="Edit Song info">
-	<fx:Script>
+       xmlns="library://ns.adobe.com/flex/spark"
+       xmlns:Components="csplayer.Components.*"
+       width="354" height="300" title="Edit Song info">
+    <fx:Script>
 		<![CDATA[
-			import csplayer.Apps.Library.Library;
-			import csplayer.Classes.SoundTrack;
-			import mx.events.FlexEvent;
-			import mx.managers.PopUpManager;
-			
-			import spark.components.Group;
-			
-			[Bindable]
-			private var soundTrack:SoundTrack;
-			
-			public function setSoundTrack(st:SoundTrack) : void {
-				soundTrack=st;
-			}
-			
-			public function close(e:Event=null):void{
-				Library.instance.saveLibrary();
-				
-				try{
-					(parent as Group).removeElement(this);
-				} catch (err:Error){
-					PopUpManager.removePopUp(this);
-				}
-			}
-			
-		]]>
+        import csplayer.Apps.Library.Library;
+        import csplayer.Classes.SoundTrack;
+
+        import mx.managers.PopUpManager;
+
+        import spark.components.Group;
+
+        [Bindable]
+        private var soundTrack:SoundTrack;
+
+        public function setSoundTrack(st:SoundTrack):void {
+            soundTrack = st;
+        }
+
+        public function close(e:Event = null):void {
+            Library.instance.saveLibrary();
+
+            try {
+                (parent as Group).removeElement(this);
+            } catch (err:Error) {
+                PopUpManager.removePopUp(this);
+            }
+        }
+        ]]>
 	</fx:Script>
 
-	<Label x="10" y="20" text="Artist"/>
-	<Label x="10" y="50" text="Song title"/>
-	<Label x="10" y="80" text="url"/>
-	<Label x="10" y="143" text="Labels"/>
-	<TextInput x="87" y="10" id="artistLabel" text="@{soundTrack.artist}"/>
-	<TextInput x="87" y="40" id="titleLabel" text="@{soundTrack.title}"/>
-	<TextInput x="87" y="70" id="urlLabel" text="@{soundTrack.urlString}" enabled="false"/>
-	<Components:LabelsRenderer id="labels" 
-							   y="163" left="41" right="10" 
-							   data="{soundTrack}" />
-	<Image y="-25" right="6" width="19" height="19"
-			 click="close(event)" 
-			 smooth="true"
-			 source="icons/1341143725_cancel.png"/>
+    <Label x="10" y="20" text="Artist"/>
+    <Label x="10" y="50" text="Song title"/>
+    <Label x="10" y="80" text="url"/>
+    <Label x="10" y="143" text="Labels"/>
+    <TextInput x="87" y="10" id="artistLabel" text="@{soundTrack.artist}"/>
+    <TextInput x="87" y="40" id="titleLabel" text="@{soundTrack.title}"/>
+    <TextInput x="87" y="70" id="urlLabel" text="@{soundTrack.urlString}" enabled="false"/>
+    <Components:LabelsRenderer id="labels"
+                               y="163" left="41" right="10"
+                               data="{soundTrack}"/>
+    <Image y="-25" right="6" width="19" height="19"
+           click="close(event)"
+           smooth="true"
+           source="icons/1341143725_cancel.png"/>
 </Panel>

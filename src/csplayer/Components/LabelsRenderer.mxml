@@ -1,169 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:DataRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 dataChange="datarenderer1_dataChangeHandler(event)"
-		 
-		 mouseOut="datarenderer1_mouseOutHandler(event)"
-		 mouseOver="datarenderer1_mouseOverHandler(event)"
-		 creationComplete="datarenderer1_creationCompleteHandler(event)"
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" >
-	<fx:Script>
+<s:DataRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
+                xmlns:s="library://ns.adobe.com/flex/spark"
+                dataChange="datarenderer1_dataChangeHandler(event)"
+
+                mouseOut="datarenderer1_mouseOutHandler(event)"
+                mouseOver="datarenderer1_mouseOverHandler(event)"
+                creationComplete="datarenderer1_creationCompleteHandler(event)"
+                width="100%">
+    <fx:Script>
 		<![CDATA[
-			import mx.collections.ArrayCollection;
-			import mx.events.FlexEvent;
-			import mx.managers.PopUpManager;
-			
-			import csplayer.Apps.Library.LibraryListViewSeparator;
-			import csplayer.Classes.SoundTrack;
-			import csplayer.Classes.Tag;
-			import csplayer.Classes.TagManager;
-			
-			[Bindable]
-			protected var listdp:ArrayCollection;
-			
-			[Bindable]
-			public var showMessageAndAddButtonIfNoLabel:Boolean=true;
-			[Bindable]
-			public var showMessage:Boolean=true;
-			[Bindable]
-			public var showAddBtn:Boolean=false;
-			[Bindable]
-			public var showX:Boolean=false;
-			
-			protected function datarenderer1_dataChangeHandler(event:FlexEvent):void {
-				
-				listdp=new ArrayCollection()
-				if(data is Vector.<Object> || data is Array){
-					//showAddBtn=true;
-					if(listdp.length==0) showMessage=true;
-					else showMessage=false;
-					
-					for each (var s:Object in data){
-						if(s is SoundTrack){
-							for each(var label:Tag in (s as SoundTrack).labels){
-								if ( hasAlreadySameName(label)==false ) listdp.addItem(label);
-							}//for
-						}//if
-						else if(s is LibraryListViewSeparator) {
-							//showAddBtn=false;
-							showMessage=false;
-						}
-					}//for
-					
-				}
-				if(data is SoundTrack){
-					for each(label in (data as SoundTrack).labels){
-						listdp.addItem(label);
-					}//for
-					if(showMessageAndAddButtonIfNoLabel){
-						//showAddBtn=true;
-						showMessage=true;
-					}
-					else {
-						//showAddBtn=false;
-						showMessage=false;
-					}
-				}
-				
-				if(data is LibraryListViewSeparator) {
-					//showAddBtn=false;
-					showMessage=false;
-				}
-			}//func
-			
-			private function hasAlreadySameName(label:Tag):Boolean{
-				for each(var l:Tag in listdp){
-					if(l.nameWithoutSpecs()==label.nameWithoutSpecs()) return true
-				}
-				return false;
-			}
-			
-			public function removeTag(tag:Tag):void {
-				if(data is Array){
-					for(var i:int=0; i<(data as Array).length; i++){
-						if(data[i] is SoundTrack){
-							
-							data[i].removeTag(tag);
-							
-							data[i].dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
-							dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
-							(data[i] as SoundTrack).rating--;
-							(data[i] as SoundTrack).rating++; //ez IS azért kell, hogy frissüjjön
-						}//if
-					}//for
-				}
-				if(data is SoundTrack) {
-					data.removeTag(tag);
-					
-					data.dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
-					dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
-					(data as SoundTrack).rating--;
-					(data as SoundTrack).rating++; //ez IS azért kell, hogy frissüjjön
-				}
-			}
-			
-			public function addTag(tag:Tag):void {
-				for(var i:int=0; i<(data as Array).length; i++){
-					if(data[i] is SoundTrack){
-						
-						(data[i] as SoundTrack).addTag(tag);
-						
-						data[i].dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
-						dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
-						(data[i] as SoundTrack).rating--;
-						(data[i] as SoundTrack).rating++; //ez IS azért kell, hogy frissüjjön
-					}//if
-				}//for
-			}
-			
-			protected function image1_clickHandler(event:MouseEvent):void {
-				var addtag:AddTagPopup=new AddTagPopup()
-				
-				addtag.y=event.stageY;
-				addtag.x=event.stageX-addtag.width/2;
-				if(event.stageY+addtag.height>stage.stageHeight) addtag.y=event.stageY-addtag.height;
-				//if(parent is Control) addtag.y=20
-				
-				PopUpManager.addPopUp(addtag,this, true); 
-				
-				if(data is Array) addtag.setSoundTrack(data)
-				if(data is Vector.<Object>) addtag.setSoundTrack(data)
-				if(data is SoundTrack) addtag.setSoundTrack([data]);
-				//addtag.addTag()
-				
-				var tags:Vector.<Tag>=new Vector.<Tag>()
-				for(var j:int=0; j<TagManager.instance.tags.length; j++){
-					addtag.addTag(TagManager.instance.tags[j])
-				}
-			}
-			
-			protected function datarenderer1_creationCompleteHandler(event:FlexEvent):void {
-				if(showX==false){
-					var productRenderer:ClassFactory = new ClassFactory(LabelsRenderersTagRenderer);
-					productRenderer.properties = { showX: false };
-					list.itemRenderer = productRenderer;
-				}
-			}
-			
-			protected function datarenderer1_mouseOutHandler(event:MouseEvent):void {
-				showAddBtn=false
-			}
-			
-			protected function datarenderer1_mouseOverHandler(event:MouseEvent):void {
-				showAddBtn=true;
-			}
-			
-		]]>
+        import csplayer.Apps.Library.LibraryListViewSeparator;
+        import csplayer.Classes.SoundTrack;
+        import csplayer.Classes.Tag;
+        import csplayer.Classes.TagManager;
+
+        import mx.collections.ArrayCollection;
+        import mx.events.FlexEvent;
+        import mx.managers.PopUpManager;
+
+        [Bindable]
+        protected var listdp:ArrayCollection;
+
+        [Bindable]
+        public var showMessageAndAddButtonIfNoLabel:Boolean = true;
+        [Bindable]
+        public var showMessage:Boolean = true;
+        [Bindable]
+        public var showAddBtn:Boolean = false;
+        [Bindable]
+        public var showX:Boolean = false;
+
+        protected function datarenderer1_dataChangeHandler(event:FlexEvent):void {
+
+            listdp = new ArrayCollection();
+            if (data is Vector.<Object> || data is Array) {
+                //showAddBtn=true;
+                showMessage = (listdp.length == 0);
+
+                for each (var s:Object in data) {
+                    if (s is SoundTrack) {
+                        for each(var label:Tag in (s as SoundTrack).labels) {
+                            if (hasAlreadySameName(label) == false) listdp.addItem(label);
+                        }//for
+                    }//if
+                    else if (s is LibraryListViewSeparator) {
+                        //showAddBtn=false;
+                        showMessage = false;
+                    }
+                }//for
+
+            }
+            if (data is SoundTrack) {
+                for each(label in (data as SoundTrack).labels) {
+                    listdp.addItem(label);
+                }//for
+                showMessage = showMessageAndAddButtonIfNoLabel;
+            }
+
+            if (data is LibraryListViewSeparator) {
+                //showAddBtn=false;
+                showMessage = false;
+            }
+        }//func
+
+        private function hasAlreadySameName(label:Tag):Boolean {
+            for each(var l:Tag in listdp) {
+                if (l.nameWithoutSpecs() == label.nameWithoutSpecs()) return true
+            }
+            return false;
+        }
+
+        public function removeTag(tag:Tag):void {
+            if (data is Array) {
+                for (var i:int = 0; i < (data as Array).length; i++) {
+                    if (data[i] is SoundTrack) {
+
+                        data[i].removeTag(tag);
+
+                        data[i].dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+                        dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+                        (data[i] as SoundTrack).rating--;
+                        (data[i] as SoundTrack).rating++; //ez IS azért kell, hogy frissüjjön
+                    }//if
+                }//for
+            }
+            if (data is SoundTrack) {
+                data.removeTag(tag);
+
+                data.dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+                dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+                (data as SoundTrack).rating--;
+                (data as SoundTrack).rating++; //ez IS azért kell, hogy frissüjjön
+            }
+        }
+
+        public function addTag(tag:Tag):void {
+            for (var i:int = 0; i < (data as Array).length; i++) {
+                if (data[i] is SoundTrack) {
+
+                    (data[i] as SoundTrack).addTag(tag);
+
+                    data[i].dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+                    dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+                    (data[i] as SoundTrack).rating--;
+                    (data[i] as SoundTrack).rating++; //ez IS azért kell, hogy frissüjjön
+                }//if
+            }//for
+        }
+
+        protected function image1_clickHandler(event:MouseEvent):void {
+            var addtag:AddTagPopup = new AddTagPopup();
+
+            addtag.y = event.stageY;
+            addtag.x = event.stageX - addtag.width / 2;
+            if (event.stageY + addtag.height > stage.stageHeight) addtag.y = event.stageY - addtag.height;
+            //if(parent is Control) addtag.y=20
+
+            PopUpManager.addPopUp(addtag, this, true);
+
+            if (data is Array) addtag.setSoundTrack(data);
+            if (data is Vector.<Object>) addtag.setSoundTrack(data);
+            if (data is SoundTrack) addtag.setSoundTrack([data]);
+            //addtag.addTag()
+
+            for (var j:int = 0; j < TagManager.instance.tags.length; j++) {
+                addtag.addTag(TagManager.instance.tags[j]);
+            }
+        }
+
+        protected function datarenderer1_creationCompleteHandler(event:FlexEvent):void {
+            if (showX == false) {
+                var productRenderer:ClassFactory = new ClassFactory(LabelsRenderersTagRenderer);
+                productRenderer.properties = { showX: false };
+                list.itemRenderer = productRenderer;
+            }
+        }
+
+        protected function datarenderer1_mouseOutHandler(event:MouseEvent):void {
+            showAddBtn = false
+        }
+
+        protected function datarenderer1_mouseOverHandler(event:MouseEvent):void {
+            showAddBtn = true;
+        }
+        ]]>
 	</fx:Script>
-	<s:HGroup x="0" y="0" verticalAlign="middle">
-		<s:List id="list" x="0" y="0" minWidth="10" borderVisible="false" contentBackgroundAlpha="0"
-				dataProvider="{listdp}" itemRenderer="csplayer.Components.LabelsRenderersTagRenderer">
-			<s:layout>
-				<s:HorizontalLayout verticalAlign="middle" />
-			</s:layout>
-		</s:List>
-		<s:Label visible="{showMessage}" text="{listdp.length==0 ?'no labels to this track.':''}"/>
-		<s:Image visible="{showAddBtn}" x="{list.width}" width="15" height="15"
-				 click="image1_clickHandler(event)" smooth="true" source="icons/plus.png" />
-	</s:HGroup>
+    <s:HGroup x="0" y="0" verticalAlign="middle">
+        <s:List id="list" x="0" y="0" minWidth="10" borderVisible="false" contentBackgroundAlpha="0"
+                dataProvider="{listdp}" itemRenderer="csplayer.Components.LabelsRenderersTagRenderer">
+            <s:layout>
+                <s:HorizontalLayout verticalAlign="middle"/>
+            </s:layout>
+        </s:List>
+        <s:Label visible="{showMessage}" text="{listdp.length==0 ?'no labels to this track.':''}"/>
+        <s:Image visible="{showAddBtn}" x="{list.width}" width="15" height="15"
+                 click="image1_clickHandler(event)" smooth="true" source="icons/plus.png"/>
+    </s:HGroup>
 </s:DataRenderer>

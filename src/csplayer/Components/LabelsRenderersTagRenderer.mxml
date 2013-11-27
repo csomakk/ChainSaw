@@ -1,65 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
-				xmlns:s="library://ns.adobe.com/flex/spark"
-				xmlns:mx="library://ns.adobe.com/flex/mx"
-				dataChange="itemrenderer1_dataChangeHandler(event)"
-				creationComplete="itemrenderer1_creationCompleteHandler(event)"
-				width="100%">
-	
-	<fx:Script>
+                xmlns:s="library://ns.adobe.com/flex/spark"
+                dataChange="itemrenderer1_dataChangeHandler(event)"
+                creationComplete="itemrenderer1_creationCompleteHandler(event)"
+                width="100%">
+
+    <fx:Script>
 		<![CDATA[
-			import mx.events.FlexEvent;
-			
-			import spark.components.List;
-			
-			import csplayer.Classes.Tag;
-			
-			[Bindable] public var col1:uint=0xffffff;
-			[Bindable] public var textColor:uint=0x000000;
-			[Bindable] public var showX:Boolean=true;
-			[Bindable] public var showXonRollover:Boolean=true;
-			
-			protected function label1_clickHandler(event:MouseEvent):void {
-				var o:spark.components.List=owner as spark.components.List;
-				var p:LabelsRenderer=o.parent.parent as LabelsRenderer;
-				p.removeTag(data as Tag)
-			}
-			
-			protected function itemrenderer1_dataChangeHandler(event:FlexEvent):void {
-				if(data){
-					col1 = (data as Tag).color1;
-					textColor = (data as Tag).textColor;
-				}
-			}
-			
-			protected function itemrenderer1_creationCompleteHandler(event:FlexEvent):void {
-				addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
-				addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
-			}
-			
-			protected function onMouseOver(event:MouseEvent):void {
-				if(showXonRollover) {
-					showX=true;
-				}
-				
-			}
-			
-			protected function onMouseOut(event:MouseEvent):void {
-				if(showXonRollover){
-					showX=false;
-				}
-			}
-			
-		]]>
+        import csplayer.Classes.Tag;
+
+        import mx.events.FlexEvent;
+
+        import spark.components.List;
+
+        [Bindable]
+        public var col1:uint = 0xffffff;
+        [Bindable]
+        public var textColor:uint = 0x000000;
+        [Bindable]
+        public var showX:Boolean = true;
+        [Bindable]
+        public var showXonRollover:Boolean = true;
+
+        protected function label1_clickHandler(event:MouseEvent):void {
+            var o:List = owner as List;
+            var p:LabelsRenderer = o.parent.parent as LabelsRenderer;
+            p.removeTag(data as Tag)
+        }
+
+        protected function itemrenderer1_dataChangeHandler(event:FlexEvent):void {
+            if (data) {
+                col1 = (data as Tag).color1;
+                textColor = (data as Tag).textColor;
+            }
+        }
+
+        protected function itemrenderer1_creationCompleteHandler(event:FlexEvent):void {
+            addEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
+            addEventListener(MouseEvent.MOUSE_OUT, onMouseOut);
+        }
+
+        protected function onMouseOver(event:MouseEvent):void {
+            if (showXonRollover) {
+                showX = true;
+            }
+
+        }
+
+        protected function onMouseOut(event:MouseEvent):void {
+            if (showXonRollover) {
+                showX = false;
+            }
+        }
+        ]]>
 	</fx:Script>
-	<s:Rect id="rect" width="100%" height="100%">
-		<s:fill><s:SolidColor color="{col1}" /></s:fill>
-	</s:Rect>
-	<s:HGroup height="15" >
-		<s:Label height="100%" color="{textColor}" 
-				 text="{(data as Tag).nameWithoutSpecs()}"
-				 textAlign="center" verticalAlign="middle"/>
-		<s:Label id="labelx" visible="{showX}" height="100%" click="label1_clickHandler(event)" width="{showX?20:0}"
-				 color="{textColor}" text="|X" textAlign="center" verticalAlign="middle"/>
-	</s:HGroup>
+    <s:Rect id="rect" width="100%" height="100%">
+        <s:fill>
+            <s:SolidColor color="{col1}"/>
+        </s:fill>
+    </s:Rect>
+    <s:HGroup height="15">
+        <s:Label height="100%" color="{textColor}"
+                 text="{(data as Tag).nameWithoutSpecs()}"
+                 textAlign="center" verticalAlign="middle"/>
+        <s:Label id="labelx" visible="{showX}" height="100%" click="label1_clickHandler(event)" width="{showX?20:0}"
+                 color="{textColor}" text="|X" textAlign="center" verticalAlign="middle"/>
+    </s:HGroup>
 </s:ItemRenderer>

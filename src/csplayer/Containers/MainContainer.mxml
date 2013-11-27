@@ -1,135 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
-		 xmlns:s="library://ns.adobe.com/flex/spark"
-		 xmlns:mx="library://ns.adobe.com/flex/mx"
-		 xmlns:csplayerComponents="csplayerComponents.*" 
-		 xmlns:Playlist="csplayer.Components.Playlist.*" 
-		 xmlns:Components="csplayer.Components.*" 
-		 xmlns:Classes="csplayer.Classes.*"
-		 xmlns:ns1="*"
-		 initialize="group1_initializeHandler(event)"
-		 width="100%" height="100%">
-	<fx:Script>
+         xmlns:s="library://ns.adobe.com/flex/spark"
+         xmlns:mx="library://ns.adobe.com/flex/mx"
+         xmlns:Playlist="csplayer.Components.Playlist.*"
+         xmlns:Components="csplayer.Components.*"
+         xmlns:Classes="csplayer.Classes.*"
+         initialize="group1_initializeHandler(event)"
+         width="100%" height="100%">
+    <fx:Script>
 		<![CDATA[
-			import csplayer.Apps.FacebookWall;
-			import csplayer.Apps.Folders;
-			import csplayer.Apps.Library.Library;
-			import csplayer.Apps.Library.LibraryListView;
-			import csplayer.Apps.Library.LibraryView;
-			import csplayer.Apps.SmartDJ;
-			import csplayer.Apps.YouTubeApp;
-			
-			import mx.collections.*;
-			import mx.events.*;
-				
-			public var libraryView:LibraryView;
-			public var libraryView2:LibraryListView = new LibraryListView();
-			public var facebookWall:FacebookWall;
-			public var youtubeApp:YouTubeApp;
-			public var folders:Folders;
-			public var smartDJ:SmartDJ;
-			private var library:Library = new Library();
-			
-			public static var instance:MainContainer;
-			 
-			protected function group1_initializeHandler(event:FlexEvent):void {
-				instance=this;
-			}
-			
-			protected function playList_creationCompleteHandler(event:FlexEvent):void {
-				library=new Library();
-				Library.instance.loadLibrary()
-				libraryView=new LibraryView();
-				//vbox.addElementAt(library,0);
-				vbox.addElement(libraryView2);
-			}	
-			
-			public function layoutLibrary():void {
-				if((vbox.getElementAt(1) is LibraryView )==false) {
-					if(vbox.numElements>1) {
-						vbox.removeElementAt(1);
-					}
-					vbox.addElement(libraryView);
-				}	
-			}
-			
-			public function layoutLibrary2():void {
-				if((vbox.getElementAt(1) is LibraryListView )==false) {
-					if(vbox.numElements>1) {
-						vbox.removeElementAt(1);
-					}
-					vbox.addElement(libraryView2);
-				}	
-			}
-			
-			public function layoutFacebookWall():void {
-				if((vbox.getElementAt(1) is FacebookWall)==false) {
-					if(vbox.numElements>1) {
-						vbox.removeElementAt(1);
-					}
-					if(facebookWall==null){
-						facebookWall=new FacebookWall();
-					}
-					vbox.addElement(facebookWall);
-				}
-			}
-			
-			public function layoutYoutube():void {
-				if((vbox.getElementAt(1) is YouTubeApp)==false) {
-					if(vbox.numElements>1) {
-						vbox.removeElementAt(1);
-					}
-					if(youtubeApp==null){
-						youtubeApp=new YouTubeApp();
-					}
-					vbox.addElement(youtubeApp);
-				}
-			}
-			
-			public function layoutFolders() : void {
-				if((vbox.getElementAt(1) is Folders)==false) {
-					if(vbox.numElements>1) {
-						vbox.removeElementAt(1);
-					}
-					if(folders==null){
-						folders=new Folders();
-					}
-					vbox.addElement(folders);
-				}
-			}
-			
-			public function layoutSmartDJ() : void {
-				if((vbox.getElementAt(1) is SmartDJ)==false) {
-					if(vbox.numElements>1) {
-						vbox.removeElementAt(1);
-					}
-					if(smartDJ==null){
-						smartDJ=new SmartDJ();
-					}
-					vbox.addElement(smartDJ);
-				}
-			}
-			
-			public function layoutShuffleAll():void {
-				/* if(vbox.numElements>1) {
-					vbox.removeElementAt(1);
-				} */
-				playList.shuffleAll()
-			}
-			
-		]]>
+        import csplayer.Apps.FacebookWall;
+        import csplayer.Apps.Folders;
+        import csplayer.Apps.Library.Library;
+        import csplayer.Apps.Library.LibraryListView;
+        import csplayer.Apps.Library.LibraryView;
+        import csplayer.Apps.SmartDJ;
+        import csplayer.Apps.YouTubeApp;
+
+        import mx.events.*;
+
+        public var libraryView:LibraryView;
+        public var libraryView2:LibraryListView = new LibraryListView();
+        public var facebookWall:FacebookWall;
+        public var youtubeApp:YouTubeApp;
+        public var folders:Folders;
+        public var smartDJ:SmartDJ;
+        private var library:Library = new Library();
+
+        public static var instance:MainContainer;
+
+        protected function group1_initializeHandler(event:FlexEvent):void {
+            instance = this;
+        }
+
+        protected function playList_creationCompleteHandler(event:FlexEvent):void {
+            library = new Library();
+            Library.instance.loadLibrary();
+            libraryView = new LibraryView();
+            //vbox.addElementAt(library,0);
+            vbox.addElement(libraryView2);
+        }
+
+        public function layoutLibrary():void {
+            if ((vbox.getElementAt(1) is LibraryView ) == false) {
+                if (vbox.numElements > 1) {
+                    vbox.removeElementAt(1);
+                }
+                vbox.addElement(libraryView);
+            }
+        }
+
+        public function layoutLibrary2():void {
+            if ((vbox.getElementAt(1) is LibraryListView ) == false) {
+                if (vbox.numElements > 1) {
+                    vbox.removeElementAt(1);
+                }
+                vbox.addElement(libraryView2);
+            }
+        }
+
+        public function layoutFacebookWall():void {
+            if ((vbox.getElementAt(1) is FacebookWall) == false) {
+                if (vbox.numElements > 1) {
+                    vbox.removeElementAt(1);
+                }
+                if (facebookWall == null) {
+                    facebookWall = new FacebookWall();
+                }
+                vbox.addElement(facebookWall);
+            }
+        }
+
+        public function layoutYoutube():void {
+            if ((vbox.getElementAt(1) is YouTubeApp) == false) {
+                if (vbox.numElements > 1) {
+                    vbox.removeElementAt(1);
+                }
+                if (youtubeApp == null) {
+                    youtubeApp = new YouTubeApp();
+                }
+                vbox.addElement(youtubeApp);
+            }
+        }
+
+        public function layoutFolders():void {
+            if ((vbox.getElementAt(1) is Folders) == false) {
+                if (vbox.numElements > 1) {
+                    vbox.removeElementAt(1);
+                }
+                if (folders == null) {
+                    folders = new Folders();
+                }
+                vbox.addElement(folders);
+            }
+        }
+
+        public function layoutSmartDJ():void {
+            if ((vbox.getElementAt(1) is SmartDJ) == false) {
+                if (vbox.numElements > 1) {
+                    vbox.removeElementAt(1);
+                }
+                if (smartDJ == null) {
+                    smartDJ = new SmartDJ();
+                }
+                vbox.addElement(smartDJ);
+            }
+        }
+
+        public function layoutShuffleAll():void {
+            /* if(vbox.numElements>1) {
+             vbox.removeElementAt(1);
+             } */
+            playList.shuffleAll()
+        }
+        ]]>
 	</fx:Script>
 
-	<mx:HDividedBox id="vbox" left="130" right="10" top="73" bottom="10">
-		<Playlist:PlayList id="playList" height="100%" creationComplete="playList_creationCompleteHandler(event)" />
-		<!--<ns1:Library id="library"/>--><!--ezt mostmár runtime adjuk--> 
-	</mx:HDividedBox>
-	
-	<s:VGroup left="10" top="70" bottom="10" width="110" gap="15">
-		<Components:Menu />
-		<Components:TagList width="100%" height="100%"/>
-	</s:VGroup>
-	<Components:Control id="control" left="0" right="0" top="0" height="63" />
-	<Classes:YoutubePlayer id="ytPlayer" visible="{control.currentSong.urlString.search('yt://')==0}"
-						   right="0" width="110" height="62"/>
+    <mx:HDividedBox id="vbox" left="130" right="10" top="73" bottom="10">
+        <Playlist:PlayList id="playList" height="100%" creationComplete="playList_creationCompleteHandler(event)"/>
+        <!--<ns1:Library id="library"/>--><!--ezt mostmár runtime adjuk-->
+    </mx:HDividedBox>
+
+    <s:VGroup left="10" top="70" bottom="10" width="110" gap="15">
+        <Components:Menu/>
+        <Components:TagList width="100%" height="100%"/>
+    </s:VGroup>
+    <Components:Control id="control" left="0" right="0" top="0" height="63"/>
+    <Classes:YoutubePlayer id="ytPlayer" visible="{control.currentSong.urlString.search('yt://')==0}"
+                           right="0" width="110" height="62"/>
 </s:Group>

@@ -1,85 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 title="Tag chooser"
-		 close="close()"
-		 keyDown="titlewindow1_keyDownHandler(event)"
-		 initialize="titlewindow1_initializeHandler(event)"
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="400" height="300">
-	
-	<fx:Script>
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009"
+               xmlns:s="library://ns.adobe.com/flex/spark"
+               title="Tag chooser"
+               close="close()"
+               keyDown="titlewindow1_keyDownHandler(event)"
+               initialize="titlewindow1_initializeHandler(event)"
+               width="400" height="300">
+
+    <fx:Script>
 		<![CDATA[
-			import csplayer.Classes.SoundTrack;
-			import csplayer.Classes.Tag;
-			import csplayer.Classes.TagManager;
-			import mx.collections.ArrayCollection;
-			import mx.core.FlexGlobals;
-			import mx.events.FlexEvent;
-			
-			public var theSound:SoundTrack;
-			[Bindable]
-			private var tags:ArrayCollection
-			
-			
-			
-			/**on OK or enter*/
-			protected function finalize(event:Event=null):void {
-				
-				
-				if(ti.text!=""){
-					if(TagManager.instance.has(ti.text)){
-						if(theSound.hasTag(TagManager.instance.get(ti.text))==false){
-							theSound.labels.push(TagManager.instance.get(ti.text))
-						}
-					} else {
-						var t:Tag=new Tag(ti.text)
-						TagManager.instance.tags.push(t)
-						theSound.addTag(t)
-					}
-				}
-				
-				
-				for each(var tag:Tag in tags){
-					if(tag.selected==0){
-						//kivenni a tag-et
-						theSound.removeTag(tag)
-						
-					}
-					if(tag.selected==1){
-						//berakni a tag-et	
-						theSound.addTag(tag)
-					}
-				}
-				
-				
-				close()
-			}
-			
-			public function close():void {
-				parent.removeChild(this)
-			}
-			
-			protected function titlewindow1_initializeHandler(event:FlexEvent):void {
-				tags=TagManager.instance.tagsAsArrayColl()
-				//TODO is third state?
-				for each(var tag:Tag in tags){
-					if(theSound.hasTag(tag)) tag.selected=1;
-					else tag.selected=0;
-				}
-			}
-			
-			protected function titlewindow1_keyDownHandler(event:KeyboardEvent):void {
-				if(event.keyCode==Keyboard.ENTER) finalize(event)
-				if(event.keyCode==Keyboard.ESCAPE) close()
-			}
-			
-		]]>
+        import csplayer.Classes.SoundTrack;
+        import csplayer.Classes.Tag;
+        import csplayer.Classes.TagManager;
+
+        import mx.collections.ArrayCollection;
+        import mx.events.FlexEvent;
+
+        public var theSound:SoundTrack;
+        [Bindable]
+        private var tags:ArrayCollection;
+
+
+        /**on OK or enter*/
+        protected function finalize(event:Event = null):void {
+
+
+            if (ti.text != "") {
+                if (TagManager.instance.has(ti.text)) {
+                    if (theSound.hasTag(TagManager.instance.get(ti.text)) == false) {
+                        theSound.labels.push(TagManager.instance.get(ti.text));
+                    }
+                } else {
+                    var t:Tag = new Tag(ti.text);
+                    TagManager.instance.tags.push(t);
+                    theSound.addTag(t);
+                }
+            }
+
+
+            for each(var tag:Tag in tags) {
+                if (tag.selected == 0) {
+                    //kivenni a tag-et
+                    theSound.removeTag(tag)
+
+                }
+                if (tag.selected == 1) {
+                    //berakni a tag-et
+                    theSound.addTag(tag)
+                }
+            }
+
+
+            close()
+        }
+
+        public function close():void {
+            parent.removeChild(this)
+        }
+
+        protected function titlewindow1_initializeHandler(event:FlexEvent):void {
+            tags = TagManager.instance.tagsAsArrayColl();
+            //TODO is third state?
+            for each(var tag:Tag in tags) {
+                if (theSound.hasTag(tag)) tag.selected = 1;
+                else tag.selected = 0;
+            }
+        }
+
+        protected function titlewindow1_keyDownHandler(event:KeyboardEvent):void {
+            if (event.keyCode == Keyboard.ENTER) finalize(event);
+            if (event.keyCode == Keyboard.ESCAPE) close();
+        }
+        ]]>
 	</fx:Script>
-	
-	<s:List id="list" left="10" right="10" dataProvider="{tags}" top="30" bottom="69" itemRenderer="csplayer.Components.TagChooser.TagChooserItemRenderer"></s:List>
-	<s:Label y="10" horizontalCenter="0" text="Tags:"/>
-	<s:Button left="10" bottom="10" click="close()" label="Cancel"/>
-	<s:Button click="finalize(event)" right="10" bottom="10" label="OK"/>
-	<s:TextInput id="ti" y="206" left="67" right="10" />
-	<s:Label x="10" y="211" text="New tag:"/>
+
+    <s:List id="list" left="10" right="10" dataProvider="{tags}" top="30" bottom="69"
+            itemRenderer="csplayer.Components.TagChooser.TagChooserItemRenderer" />
+    <s:Label y="10" horizontalCenter="0" text="Tags:"/>
+    <s:Button left="10" bottom="10" click="close()" label="Cancel"/>
+    <s:Button click="finalize(event)" right="10" bottom="10" label="OK"/>
+    <s:TextInput id="ti" y="206" left="67" right="10"/>
+    <s:Label x="10" y="211" text="New tag:"/>
 </s:TitleWindow>

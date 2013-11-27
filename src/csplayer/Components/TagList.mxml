@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark"  initialize="group1_creationCompleteHandler(event)"
-		 xmlns:mx="library://ns.adobe.com/flex/mx" >
-	<fx:Script>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+         xmlns:s="library://ns.adobe.com/flex/spark" initialize="group1_creationCompleteHandler(event)">
+    <fx:Script>
 		<![CDATA[
-			import csplayer.Classes.Tag;
-			import csplayer.Classes.TagManager;
-			
-			import mx.collections.ArrayCollection;
-			import mx.events.FlexEvent;
-			[Bindable]
-			public var dp:ArrayCollection;
-			public static var instance:TagList;
-			
-			
-			protected function group1_creationCompleteHandler(event:FlexEvent):void {
-				refresh();
-				instance=this;
-			}
-			
-			public function refresh():void {
-				var vector:Vector.<Tag>=TagManager.instance.tags;
-				dp=new ArrayCollection(); 
-				for(var i:int=0; i<vector.length; i++){
-					dp.addItem(vector[i]);
-				}
-			}
-			
-		]]>
+        import csplayer.Classes.Tag;
+        import csplayer.Classes.TagManager;
+
+        import mx.collections.ArrayCollection;
+        import mx.events.FlexEvent;
+
+        [Bindable]
+        public var dp:ArrayCollection;
+        public static var instance:TagList;
+
+
+        protected function group1_creationCompleteHandler(event:FlexEvent):void {
+            refresh();
+            instance = this;
+        }
+
+        public function refresh():void {
+            var vector:Vector.<Tag> = TagManager.instance.tags;
+            dp = new ArrayCollection();
+            for (var i:int = 0; i < vector.length; i++) {
+                dp.addItem(vector[i]);
+            }
+        }
+        ]]>
 	</fx:Script>
-	<s:Label x="0" y="10" text="Labels:"/>
-	<s:List id="list" borderVisible="false" left="0" right="10" top="30" bottom="0" 
-			itemRenderer="csplayer.Components.TagListItemRenderer" 
-			dataProvider="{dp}" />
+    <s:Label x="0" y="10" text="Labels:"/>
+    <s:List id="list" borderVisible="false" left="0" right="10" top="30" bottom="0"
+            itemRenderer="csplayer.Components.TagListItemRenderer"
+            dataProvider="{dp}"/>
 </s:Group>

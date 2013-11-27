@@ -44,10 +44,11 @@
         }
         ]]>
 	</fx:Script>
-	<s:Label x="10" y="10" text="On startup:"/>
-	<s:CheckBox id="onStartupPlay" x="30" y="30" label="Play music" selected="{onStartup==0}" click="onStartup=0"/>
-	<s:CheckBox id="onStartupIfPlayed" x="122" y="30" label="Play if exited while playing" selected="{onStartup==1}" click="onStartup=1"/>
-	<s:CheckBox id="onStartupDontplay" x="290" y="30" label="don't play" selected="{onStartup==2}" click="onStartup=2"/>
-	<s:Image right="7" top="-25" width="19" height="19" click="close(event)" smooth="true"
-			 source="icons/1341143725_cancel.png"/>
+    <s:Label x="10" y="10" text="On startup:"/>
+    <s:CheckBox id="onStartupPlay" x="30" y="30" label="Play music" selected="{onStartup==0}" click="onStartup=0"/>
+    <s:CheckBox id="onStartupIfPlayed" x="122" y="30" label="Play if exited while playing" selected="{onStartup==1}"
+                click="onStartup=1"/>
+    <s:CheckBox id="onStartupDontplay" x="290" y="30" label="don't play" selected="{onStartup==2}" click="onStartup=2"/>
+    <s:Image right="7" top="-25" width="19" height="19" click="close(event)" smooth="true"
+             source="icons/1341143725_cancel.png"/>
 </s:Panel>

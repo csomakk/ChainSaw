@@ -1,67 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
-				xmlns:s="library://ns.adobe.com/flex/spark"
-				xmlns:mx="library://ns.adobe.com/flex/mx"
-				xmlns:Components="csplayer.Components.*"
-				autoDrawBackground="true"
-				dataChange="itemrenderer1_dataChangeHandler(event)"
-				>
-	<fx:Script>
+                xmlns:s="library://ns.adobe.com/flex/spark"
+                xmlns:Components="csplayer.Components.*"
+                autoDrawBackground="true"
+                dataChange="itemrenderer1_dataChangeHandler(event)"
+        >
+    <fx:Script>
 		<![CDATA[
-			import csplayer.Classes.SoundTrack;
-			
-			import mx.events.FlexEvent;
-			
-			[Bindable] private var separatorText:String;
-			[Bindable] private var titleText:String;
-			[Bindable] private var st:SoundTrack;
-			
-			protected function itemrenderer1_dataChangeHandler(event:FlexEvent):void {
-				if (data is SoundTrack) {
-					currentState="songDisplay"
-					st=(data as SoundTrack)
-					titleText=st.title;
-				}
-				if (data is LibraryListViewSeparator) {
-					currentState="separator"
-					separatorText=(data as LibraryListViewSeparator).display;
-				}
-				
-				
-			}
-			
-			protected function itemrenderer1_removeHandler(event:FlexEvent):void {
-				Library.instance.saveLibrary();
-			}
-			
-		]]>
+        import csplayer.Classes.SoundTrack;
+
+        import mx.events.FlexEvent;
+
+        [Bindable]
+        private var separatorText:String;
+        [Bindable]
+        private var titleText:String;
+        [Bindable]
+        private var st:SoundTrack;
+
+        protected function itemrenderer1_dataChangeHandler(event:FlexEvent):void {
+            if (data is SoundTrack) {
+                currentState = "songDisplay";
+                st = (data as SoundTrack);
+                titleText = st.title;
+            }
+            if (data is LibraryListViewSeparator) {
+                currentState = "separator";
+                separatorText = (data as LibraryListViewSeparator).display;
+            }
+
+
+        }
+
+        protected function itemrenderer1_removeHandler(event:FlexEvent):void {
+            Library.instance.saveLibrary();
+        }
+        ]]>
 	</fx:Script>
-	<s:states>
-		<s:State name="songDisplay" />
-		<s:State name="separator" />
-	</s:states>
-	<s:Label id="title" 
-			 includeIn="songDisplay" 
-			 left="10" right="0" height="14"
-			 text="{titleText}"
-			 verticalAlign="middle"
-			 />
-	<s:Label id="artist" 
-			 includeIn="separator" 
-			 width="100%" height="20" 
-			 backgroundColor="#9ED6FA"
-			 fontSize="16" fontStyle="normal" fontWeight="bold" 
-			 text="{separatorText}" 
-			 textAlign="center" verticalAlign="middle"/>
-	<Components:Rating id="rating" soundTrack="{st}" includeIn="songDisplay" 
-					   itemCreationPolicy="immediate" 
-					   modifiersOnRollover="true"
-					   modifiersVisible="false"
-					   y="0" right="0" />
-	<Components:LabelsRenderer id="labels" 
-							  showMessageAndAddButtonIfNoLabel="false"
-							  showX="false"
-							  data="{data}"
-							  includeIn="songDisplay" 
-							  x="152" y="0" height="12" />
+    <s:states>
+        <s:State name="songDisplay"/>
+        <s:State name="separator"/>
+    </s:states>
+    <s:Label id="title"
+             includeIn="songDisplay"
+             left="10" right="0" height="14"
+             text="{titleText}"
+             verticalAlign="middle"
+            />
+    <s:Label id="artist"
+             includeIn="separator"
+             width="100%" height="20"
+             backgroundColor="#9ED6FA"
+             fontSize="16" fontStyle="normal" fontWeight="bold"
+             text="{separatorText}"
+             textAlign="center" verticalAlign="middle"/>
+    <Components:Rating id="rating" soundTrack="{st}" includeIn="songDisplay"
+                       itemCreationPolicy="immediate"
+                       modifiersOnRollover="true"
+                       modifiersVisible="false"
+                       y="0" right="0"/>
+    <Components:LabelsRenderer id="labels"
+                               showMessageAndAddButtonIfNoLabel="false"
+                               showX="false"
+                               data="{data}"
+                               includeIn="songDisplay"
+                               x="152" y="0" height="12"/>
 </s:ItemRenderer>

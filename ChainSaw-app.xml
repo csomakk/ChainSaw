@@ -8,7 +8,7 @@
 
      minimumPatchLevel - The minimum patch level of the AIR runtime required to run the application. Optional. -->
 
-    <application xmlns="http://ns.adobe.com/air/application/3.1">
+<application xmlns="http://ns.adobe.com/air/application/3.1">
 
     <!-- A universally unique application identifier. Must be unique across all AIR applications.
          Using a reverse DNS-style name as the id is recommended. (Eg. com.example.ExampleApplication.) Required. -->
@@ -32,7 +32,9 @@
     <!--<version>10.0.0</version>-->
 
     <!-- Description, displayed in the AIR application installer. May have multiple values for each language. See samples or xsd schema file. Optional. -->
-    <description>ChainSaw Player built by Gabor Csomak. Organise your online and offline music in one place! More info on github: https://github.com/csomakk/ChainSaw</description>
+    <description>ChainSaw Player built by Gabor Csomak. Organise your online and offline music in one place! More info
+        on github: https://github.com/csomakk/ChainSaw
+    </description>
 
     <!-- Copyright information. Optional -->
     <copyright>Gabor Csomak</copyright>
@@ -106,7 +108,7 @@
 
         <!-- Whether or not to pan when a soft keyboard is raised or lowered (either "pan" or "none").  Optional.  Defaults "pan." -->
         <!--<softKeyboardBehavior></softKeyboardBehavior>-->
-			
+
     </initialWindow>
 
     <!-- We recommend omitting the supportedProfiles element, which in turn permits your application to be deployed to all devices supported by AIR.
@@ -123,17 +125,17 @@
     <!--<programMenuFolder></programMenuFolder>-->
 
     <!-- The icon the system uses for the application. For at least one resolution, specify the path to a PNG file included in the AIR package. Optional. -->
-	<icon>
-<!--		<image16x16>icons/appicon/16.png</image16x16>
-		<image32x32>icons/appicon/32.png</image32x32>
-		<image36x36>icons/appicon/36.png</image36x36>
-		<image48x48>icons/appicon/48.png</image48x48>
-		<image57x57>icons/appicon/57.png</image57x57>
-		<image72x72>icons/  appicon/72.png</image72x72>
-		<image114x114>icons/appicon/114.png</image114x114>
-		<image128x128>/appIcons/128.png</image128x128>		-->
+    <icon>
+        <!--		<image16x16>icons/appicon/16.png</image16x16>
+                <image32x32>icons/appicon/32.png</image32x32>
+                <image36x36>icons/appicon/36.png</image36x36>
+                <image48x48>icons/appicon/48.png</image48x48>
+                <image57x57>icons/appicon/57.png</image57x57>
+                <image72x72>icons/  appicon/72.png</image72x72>
+                <image114x114>icons/appicon/114.png</image114x114>
+                <image128x128>/appIcons/128.png</image128x128>		-->
 
-	</icon>
+    </icon>
 
     <!-- Whether the application handles the update when a user double-clicks an update version of the AIR file (true),
          or the default AIR application installer handles the update (false). Optional. Default false. -->
@@ -166,70 +168,70 @@
 
     <!-- iOS specific capabilities -->
     <!--<iPhone>-->
-        <!-- A list of plist key/value pairs to be added to the application Info.plist -->
-        <!--<InfoAdditions>-->
-            <!--<![CDATA[-->
-            <!--<key>UIDeviceFamily</key>-->
-            <!--<array>-->
-                <!-- iPhone and iPod touch devices -->
-                <!--<string>1</string>-->
-                <!-- iPad devices -->
-                <!--<string>2</string>-->
-            <!--</array>-->
-            <!--<key>UIStatusBarStyle</key>-->
-            <!--<string>UIStatusBarStyleBlackOpaque</string>-->
-            <!--<key>UIRequiresPersistentWiFi</key>-->
-            <!--<string>YES</string>-->
-            <!--]]>-->
-        <!--</InfoAdditions>-->
+    <!-- A list of plist key/value pairs to be added to the application Info.plist -->
+    <!--<InfoAdditions>-->
+    <!--<![CDATA[-->
+    <!--<key>UIDeviceFamily</key>-->
+    <!--<array>-->
+    <!-- iPhone and iPod touch devices -->
+    <!--<string>1</string>-->
+    <!-- iPad devices -->
+    <!--<string>2</string>-->
+    <!--</array>-->
+    <!--<key>UIStatusBarStyle</key>-->
+    <!--<string>UIStatusBarStyleBlackOpaque</string>-->
+    <!--<key>UIRequiresPersistentWiFi</key>-->
+    <!--<string>YES</string>-->
+    <!--]]>-->
+    <!--</InfoAdditions>-->
 
-        <!-- A list of plist key/value pairs to be added to the application Entitlements.plist -->
-        <!--<Entitlements>
-            <![CDATA[
-            <key>keychain-access-groups</key>
-            <array>
-                <string></string>
-                <string></string>
-            </array>
-            ]]>
-        </Entitlements>-->
+    <!-- A list of plist key/value pairs to be added to the application Entitlements.plist -->
+    <!--<Entitlements>
+        <![CDATA[
+        <key>keychain-access-groups</key>
+        <array>
+            <string></string>
+            <string></string>
+        </array>
+        ]]>
+    </Entitlements>-->
 
-        <!-- Display Resolution for the app (either "standard" or "high"). Optional. Default "standard" -->
-        <!--<requestedDisplayResolution>high</requestedDisplayResolution>-->
+    <!-- Display Resolution for the app (either "standard" or "high"). Optional. Default "standard" -->
+    <!--<requestedDisplayResolution>high</requestedDisplayResolution>-->
     <!--</iPhone>-->
 
     <!-- Android specific tags that get passed to AndroidManifest.xml file. -->
     <!--<android>-->
-        <!--<manifestAdditions>-->
-            <!--<![CDATA[-->
-            <!--<manifest android:installLocation="auto">-->
-                <!--<uses-permission android:name="android.permission.INTERNET"/>-->
-                <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>-->
-                <!--<uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->
-                <!--<uses-permission android:name="android.permission.VIBRATE"/>-->
-                <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>-->
-                <!--<uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>-->
-                <!--<uses-permission android:name="android.permission.WAKE_LOCK"/>-->
-                <!--<uses-permission android:name="android.permission.CAMERA"/>-->
-                <!--<uses-permission android:name="android.permission.RECORD_AUDIO"/>-->
-                <!--<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>-->
-                <!--<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>-->
+    <!--<manifestAdditions>-->
+    <!--<![CDATA[-->
+    <!--<manifest android:installLocation="auto">-->
+    <!--<uses-permission android:name="android.permission.INTERNET"/>-->
+    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>-->
+    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->
+    <!--<uses-permission android:name="android.permission.VIBRATE"/>-->
+    <!--<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>-->
+    <!--<uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>-->
+    <!--<uses-permission android:name="android.permission.WAKE_LOCK"/>-->
+    <!--<uses-permission android:name="android.permission.CAMERA"/>-->
+    <!--<uses-permission android:name="android.permission.RECORD_AUDIO"/>-->
+    <!--<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>-->
+    <!--<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>-->
 
-                <!--<uses-feature android:required="true" android:name="android.hardware.touchscreen.multitouch"/>-->
-                <!--<application android:enabled="true">
-                    <activity android:excludeFromRecents="false">
-                        <intent-filter>
-                            <action android:name="android.intent.action.MAIN"/>
-                            <category android:name="android.intent.category.LAUNCHER"/>
-                        </intent-filter>
-                    </activity>
-                </application>-->
-            <!--</manifest>-->
-            <!--]]>-->
-            <!--</manifestAdditions>-->
+    <!--<uses-feature android:required="true" android:name="android.hardware.touchscreen.multitouch"/>-->
+    <!--<application android:enabled="true">
+        <activity android:excludeFromRecents="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+    </application>-->
+    <!--</manifest>-->
+    <!--]]>-->
+    <!--</manifestAdditions>-->
 
-        <!-- Color depth for the app (either "32bit" or "16bit"). Optional. Default 16bit before namespace 3.0, 32bit after -->
-        <!--<colorDepth></colorDepth>-->
+    <!-- Color depth for the app (either "32bit" or "16bit"). Optional. Default 16bit before namespace 3.0, 32bit after -->
+    <!--<colorDepth></colorDepth>-->
     <!--</android>-->
 
 </application>

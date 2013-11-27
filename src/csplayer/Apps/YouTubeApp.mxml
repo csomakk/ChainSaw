@@ -1,65 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 creationComplete="group1_creationCompleteHandler(event)"
-		 removed="group1_removedFromStageHandler(event)"
-		 xmlns:mx="library://ns.adobe.com/flex/mx" 
-		 width="100%" height="100%">
-	<fx:Script>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+         xmlns:s="library://ns.adobe.com/flex/spark"
+         creationComplete="group1_creationCompleteHandler(event)"
+         removed="group1_removedFromStageHandler(event)"
+         xmlns:mx="library://ns.adobe.com/flex/mx"
+         width="100%" height="100%">
+    <fx:Script>
 		<![CDATA[
-			import csplayer.Apps.Library.Library;
-			import csplayer.Classes.SoundTrack;
-			
-			import mx.events.FlexEvent;
-			import mx.managers.PopUpManager;
-			
-			protected function group1_creationCompleteHandler(event:FlexEvent):void {
-				ytBrowser.location="http://www.youtube.com";
-			}
-			
-			protected function addToLibrary_Clickhandler(event:MouseEvent):void
-			{
-				var url:String=ytBrowser.location;
-				if(url.search('v=')==-1) return;
-				var video_id:String = url.slice(url.search('v=')+2);
-				var ampersandPosition:int = video_id.indexOf('&');
-				if(ampersandPosition != -1) {
-					video_id = video_id.substring(0, ampersandPosition);
-				}
-				trace("YouTubeApp:addToLibrary", video_id);
-				
-				var st:SoundTrack=new SoundTrack();
-				st.artist="youtube";
-				st.title=video_id;
-				
-				st.urlString = "yt://" + video_id;
-				
-				var edit:SongEdit=new SongEdit;
-				edit.setSoundTrack(st);
-				PopUpManager.centerPopUp(edit);
-				PopUpManager.addPopUp(edit,this);
-				
-				Library.instance.soundTracks.addItem(st);
-				Library.instance.saveLibrary();
-				
-			}
-			
-			protected function group1_removedFromStageHandler(event:Event):void
-			{
-				ytBrowser.location = "http://www.youtube.com";
-			}
-			
-		]]>
+        import csplayer.Apps.Library.Library;
+        import csplayer.Classes.SoundTrack;
+
+        import mx.events.FlexEvent;
+        import mx.managers.PopUpManager;
+
+        protected function group1_creationCompleteHandler(event:FlexEvent):void {
+            ytBrowser.location = "http://www.youtube.com";
+        }
+
+        protected function addToLibrary_Clickhandler(event:MouseEvent):void {
+            var url:String = ytBrowser.location;
+            if (url.search('v=') == -1) return;
+            var video_id:String = url.slice(url.search('v=') + 2);
+            var ampersandPosition:int = video_id.indexOf('&');
+            if (ampersandPosition != -1) {
+                video_id = video_id.substring(0, ampersandPosition);
+            }
+            trace("YouTubeApp:addToLibrary", video_id);
+
+            var st:SoundTrack = new SoundTrack();
+            st.artist = "youtube";
+            st.title = video_id;
+
+            st.urlString = "yt://" + video_id;
+
+            var edit:SongEdit = new SongEdit;
+            edit.setSoundTrack(st);
+            PopUpManager.centerPopUp(edit);
+            PopUpManager.addPopUp(edit, this);
+
+            Library.instance.soundTracks.addItem(st);
+            Library.instance.saveLibrary();
+
+        }
+
+        protected function group1_removedFromStageHandler(event:Event):void {
+            ytBrowser.location = "http://www.youtube.com";
+        }
+        ]]>
 	</fx:Script>
-	<s:Label x="57" y="68" text="youtubeapp"/>
-	<s:HGroup width="100%" paddingTop="5">
-		<s:Button width="30" label="&lt;" click="ytBrowser.historyBack()"/>
-		<s:Button width="30" label="&gt;" click="ytBrowser.historyForward()"/>
-		<s:Button label="Reload" click="ytBrowser.reload()"/>
-		<s:TextInput id="loc" width="70%" enter="ytBrowser.location = loc.text" text="{ytBrowser.location}"/>
-		<s:Button width="30%" label="Add to Library" 
-				  click="addToLibrary_Clickhandler(event)"
-				  fontWeight="bold"/>
-	</s:HGroup>
-	<mx:HTML id="ytBrowser" left="0" right="0" top="35" bottom="0"/>
+    <s:Label x="57" y="68" text="youtubeapp"/>
+    <s:HGroup width="100%" paddingTop="5">
+        <s:Button width="30" label="&lt;" click="ytBrowser.historyBack()"/>
+        <s:Button width="30" label="&gt;" click="ytBrowser.historyForward()"/>
+        <s:Button label="Reload" click="ytBrowser.reload()"/>
+        <s:TextInput id="loc" width="70%" enter="ytBrowser.location = loc.text" text="{ytBrowser.location}"/>
+        <s:Button width="30%" label="Add to Library"
+                  click="addToLibrary_Clickhandler(event)"
+                  fontWeight="bold"/>
+    </s:HGroup>
+    <mx:HTML id="ytBrowser" left="0" right="0" top="35" bottom="0"/>
 </s:Group>

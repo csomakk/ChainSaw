@@ -17,7 +17,7 @@
         }
 
         protected function windowedapplication1_initializeHandler(event:FlexEvent):void {
-            settings=new SettingsPopup();
+            settings = new SettingsPopup();
             settings.construct();
         }
         ]]></fx:Script>

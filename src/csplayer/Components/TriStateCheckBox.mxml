@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Group xmlns:fx="http://ns.adobe.com/mxml/2009"
-		 xmlns="library://ns.adobe.com/flex/spark"
+       xmlns="library://ns.adobe.com/flex/spark"
         >
-	
-	<fx:Script>
+
+    <fx:Script>
 		<![CDATA[
         import csplayer.Classes.CsPlayerEvents;
 
@@ -46,9 +46,9 @@
         ]]>
 	</fx:Script>
 
-	<CheckBox id="checkbox" click="checkbox_clickHandler(event)" visible="{boxVisible}" includeInLayout="{boxVisible}"/>
-	<Image id="undecidedImg" source="@Embed('/icons/checkbox.gif')"
-			 width="16" height="16"
-			 click="image_clickHandler(event)" 
-			 visible="{!boxVisible}" includeInLayout="{!boxVisible}"/>
+    <CheckBox id="checkbox" click="checkbox_clickHandler(event)" visible="{boxVisible}" includeInLayout="{boxVisible}"/>
+    <Image id="undecidedImg" source="@Embed('/icons/checkbox.gif')"
+           width="16" height="16"
+           click="image_clickHandler(event)"
+           visible="{!boxVisible}" includeInLayout="{!boxVisible}"/>
 </Group>
