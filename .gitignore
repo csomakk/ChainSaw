@@ -1,4 +1,4 @@
 .idea/workspace.xml
 out
-!out/ChainSaw.air
-!out/updateDescriptor.xml
+!install/ChainSaw.air
+!install/updateDescriptor.xml
