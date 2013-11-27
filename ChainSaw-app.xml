@@ -126,13 +126,13 @@
 
     <!-- The icon the system uses for the application. For at least one resolution, specify the path to a PNG file included in the AIR package. Optional. -->
     <icon>
-        <!--		<image16x16>icons/appicon/16.png</image16x16>
-                <image32x32>icons/appicon/32.png</image32x32>
-                <image36x36>icons/appicon/36.png</image36x36>
-                <image48x48>icons/appicon/48.png</image48x48>
-                <image57x57>icons/appicon/57.png</image57x57>
-                <image72x72>icons/  appicon/72.png</image72x72>
-                <image114x114>icons/appicon/114.png</image114x114>-->
+        		<image16x16>/assets/appIcons/16.png</image16x16>
+                <image32x32>/assets/appIcons/32.png</image32x32>
+                <image36x36>/assets/appIcons/36.png</image36x36>
+                <image48x48>/assets/appIcons/48.png</image48x48>
+                <image57x57>/assets/appIcons/57.png</image57x57>
+                <image72x72>/assets/appIcons/72.png</image72x72>
+                <image114x114>/assets/appIcons/114.png</image114x114>
                 <image128x128>/assets/appIcons/128.png</image128x128>
 
     </icon>
