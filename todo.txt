@@ -1,47 +1,47 @@
+ == HIGH
+ - [] current song labels update on next track!! BUG.
+ - [] fix prod images
+ - [] folder add bugfix - fogalmam sincs mi a hiba, nehéz lesz kiirtani. cs.
+ - [] amplification, settings, mail bekötése. mail:bugreport/feature request/feedback/...
+ 
+ == EASY
+ - [] good random. every open increaze size of library with new random number. 
+ 	this will be the "size" of your library. if its out of scope, than
+ 	mod n. this is good, so shuffle will be even better.
+ - [] tag search in addTagPopup, and TagList. Filter should work here
+ - [] right click - disabled face share, edit
+ - [] add label playlisthez (összes számhoz ad) bekötése
+ 
+ == MEDIUM
+ - [] sleep mode, w timer. 
  - [] labels into playlist with squares, labelcolor inside them 3x3. like in left pane
  - [] playlist label editor as popup. (auto close on click outside)
- - [] fix icons
- - [] new label button a label cuccra is.
- - [] tag search az addTagPopup-ban, és a TagList-ben.
+ - [] new label button to left pane label selector
+ - [] tags as icons
+ - [] folder app megcsinálása..
+  - [] hotkeyek, keyboard play/pause, ... space, winamp, etc
+ 
+ == LONG
  - [] facebook wall playlist
  - [] youtube
-	- [] share youtube on facebook, kb. mint a google musicban, de ez facebookra oszt.
- - [] right click - libraryban és playlisten is jöjjön elő helyi menü: "share on Facebook", és "edit info"
-	- [] edit info - zeneszám szerkesztése, úgy, mint iTunesban a GetInfo.
- - [] playlist import (drag and dropra is)
- - [] zene import drag and dropra 
+	- [] share youtube on facebook, like in a google musicban, but to face.
+	- [] import youtube playlists
  - [] tagek folderek vagy fa strukturájuak ha ddd/aaa ddd/bbb akkor ddd egy folder, csak a tagList-ben
- - [] tooltips
- - [] "no labels to this track" ne irodjon ki, ha semmi vagy album van kijelölve.
- - [] binding warningok kiirtása
- - [] folder add bugfix - fogalmam sincs mi a hiba, nehéz lesz kiirtani. cs.
- - [] tags as icons
- - [] rating fölülre a control-ba.
- - [] amplification, settings, mail bekötése. mail:bugreport/feature request/feedback/...
- - [] folder app megcsinálása..
- - [] add label playlisthez (összes számhoz ad) bekötése
  - [] chrome plugin: ha youtube megy, akkor pause, majd resume a végén.. megoldható? Ugyanebben mp3 keresés weboldalon
- - [] hotkeyek, keyboard play/pause, ...
- - [] ikon fixálása, kicsihez kicsi, ...
  - [] option to open .mp3 as default.
- - [] mash tape like stuff (songbirdben van: http://addons.songbirdnest.com/addon/73)
- - [] minimize to tray option
  - [] option for popup notif when song changes
  - [] watch folders, ha zenét adok hozzá a zene mappámhoz, vegye észre
- - [] pro accounthoz sync, csak online zenét. 
+ - [] rating automatikus (optional): meghallgatod ++, skippeled -10; aging, ...
+ - [] könyvtárad youtubeon megkeresi, és úgy sync, meg web player, meg....
  
- - gombnyomásra végtelenitett repeat akár 10 mp-t, akár .  
- - [peti] rating automatikus (optional): meghallgatod ++, skippeled -10; aging, ...
-
- - sleep mód
- - last.fm api integráció
-
-
- - könyvtárad youtubeon megkeresi, és úgy sync, meg web player, meg....
- - web player
- - youtube subscribe új előadókra
-
-
+ == LOW
+ - [] fix icons
+ - [] music import drag and drop 
+ - [] edit info - like iTunes GetInfo. on right click
+ - [] mash tape like stuff (songbirdben van: http://addons.songbirdnest.com/addon/73)
+ - [] last.fm api integráció
+ 
+ == UNSORTED
 
  == Csomák érti csak ... ==
  
