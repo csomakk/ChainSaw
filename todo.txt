@@ -13,15 +13,19 @@
  - [] add label playlisthez (összes számhoz ad) bekötése
  
  == MEDIUM
+ - [] auto update after IWatchSeriez 
  - [] sleep mode, w timer. 
  - [] labels into playlist with squares, labelcolor inside them 3x3. like in left pane
  - [] playlist label editor as popup. (auto close on click outside)
  - [] new label button to left pane label selector
  - [] tags as icons
  - [] folder app megcsinálása..
-  - [] hotkeyek, keyboard play/pause, ... space, winamp, etc
+ - [] hotkeyek, keyboard play/pause, ... space, winamp, etc
+ - [] website
+ - előadó ratingje = szum song ratings
  
  == LONG
+ - [] party mode (admin)
  - [] facebook wall playlist
  - [] youtube
 	- [] share youtube on facebook, like in a google musicban, but to face.
@@ -33,41 +37,30 @@
  - [] watch folders, ha zenét adok hozzá a zene mappámhoz, vegye észre
  - [] rating automatikus (optional): meghallgatod ++, skippeled -10; aging, ...
  - [] könyvtárad youtubeon megkeresi, és úgy sync, meg web player, meg....
+ - [] 5.1, 7.1 speaker support
  
+ - [] pro authenticate, parse api, server side
+ - [] tag search, search, autoDJ
+  - labelList options gombok bekötése, klikkre arra legyen szűrés
+
+  
  == LOW
+ - [] custom save folder for settings, labels, sync
  - [] fix icons
  - [] music import drag and drop 
  - [] edit info - like iTunes GetInfo. on right click
  - [] mash tape like stuff (songbirdben van: http://addons.songbirdnest.com/addon/73)
  - [] last.fm api integráció
+ - [] library column width - save and load
+ - [] log 
  
- == UNSORTED
-
- == Csomák érti csak ... ==
+  
+ == FAR FUTURE
  
- - try sectionlist on library: http://corlan.org/2011/07/04/creating-flex-mobile-section-lists/
-    - drag and drop lib -> playlist
-
-
- - backgroundok (zenekarokkal, stb..)
- - 5.1, 7.1 speaker support
- - tag search, search, autoDJ
- - labelList options gombok bekötése, klikkre arra legyen szűrés
- - library column width - save and load
- - előadó ratingje = szum song ratings
- - rating display
- - alternativ rating systemek: 5*, like/dislike, ...
- - party mode (admin)
- - ios, android (stream?) 
- - custom save folder for settings, labels, sync
-
+ - [] ios, android (stream?) 
  
- == MAINTENANCE ==
- - auto update
- - log
- - pro authenticate 
-	- facebook, google oauth
 
- - website
- 
+
+
+
  
