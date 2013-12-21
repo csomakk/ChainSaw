@@ -1,27 +1,31 @@
+ 
+ 
  == HIGH
  - [] current song labels update on next track!! BUG.
- - [] fix prod images
  - [] folder add bugfix - fogalmam sincs mi a hiba, nehéz lesz kiirtani. cs.
  - [] amplification, settings, mail bekötése. mail:bugreport/feature request/feedback/...
  
  == EASY
  - [] good random. every open increaze size of library with new random number. 
  	this will be the "size" of your library. if its out of scope, than
- 	mod n. this is good, so shuffle will be even better.
+ 	mod n. this is good, so shuffle will be even better. also check if
+ 	current shuffle works fine..
  - [] tag search in addTagPopup, and TagList. Filter should work here
  - [] right click - disabled face share, edit
  - [] add label playlisthez (összes számhoz ad) bekötése
- 
- == MEDIUM
- - [] auto update after IWatchSeriez 
- - [] sleep mode, w timer. 
  - [] labels into playlist with squares, labelcolor inside them 3x3. like in left pane
  - [] playlist label editor as popup. (auto close on click outside)
+ 
+ == MEDIUM
+ - [] website
+ - [] fix prod images
+ - [] auto update after IWatchSeriez 
+ - [] sleep mode, w timer. 
  - [] new label button to left pane label selector
  - [] tags as icons
- - [] folder app megcsinálása..
+
  - [] hotkeyek, keyboard play/pause, ... space, winamp, etc
- - [] website
+
  - előadó ratingje = szum song ratings
  
  == LONG
@@ -37,12 +41,10 @@
  - [] watch folders, ha zenét adok hozzá a zene mappámhoz, vegye észre
  - [] rating automatikus (optional): meghallgatod ++, skippeled -10; aging, ...
  - [] könyvtárad youtubeon megkeresi, és úgy sync, meg web player, meg....
- - [] 5.1, 7.1 speaker support
- 
  - [] pro authenticate, parse api, server side
  - [] tag search, search, autoDJ
-  - labelList options gombok bekötése, klikkre arra legyen szűrés
-
+ - [] labelList options gombok bekötése, klikkre arra legyen szűrés
+ - [] folder app megcsinálása..
   
  == LOW
  - [] custom save folder for settings, labels, sync
@@ -58,7 +60,7 @@
  == FAR FUTURE
  
  - [] ios, android (stream?) 
- 
+ - [] 5.1, 7.1 speaker support
 
 
 
