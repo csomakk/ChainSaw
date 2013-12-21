@@ -1,12 +1,13 @@
-﻿  == MÁSOK IS ==
+ - [] labels into playlist with squares, labelcolor inside them 3x3. like in left pane
+ - [] playlist label editor as popup. (auto close on click outside)
  - [] fix icons
  - [] new label button a label cuccra is.
  - [] tag search az addTagPopup-ban, és a TagList-ben.
- - [] facebook wall
+ - [] facebook wall playlist
  - [] youtube
-		  - [] share youtube on facebook, kb. mint a google musicban, de ez facebookra oszt.
+	- [] share youtube on facebook, kb. mint a google musicban, de ez facebookra oszt.
  - [] right click - libraryban és playlisten is jöjjön elő helyi menü: "share on Facebook", és "edit info"
-	  - [] edit info - zeneszám szerkesztése, úgy, mint iTunesban a GetInfo.
+	- [] edit info - zeneszám szerkesztése, úgy, mint iTunesban a GetInfo.
  - [] playlist import (drag and dropra is)
  - [] zene import drag and dropra 
  - [] tagek folderek vagy fa strukturájuak ha ddd/aaa ddd/bbb akkor ddd egy folder, csak a tagList-ben
@@ -14,9 +15,7 @@
  - [] "no labels to this track" ne irodjon ki, ha semmi vagy album van kijelölve.
  - [] binding warningok kiirtása
  - [] folder add bugfix - fogalmam sincs mi a hiba, nehéz lesz kiirtani. cs.
- - [] tag settings -- color, ...
-	 - [] tag, ami elkeriti a shuffle allt.
-	 - [] tags as icons
+ - [] tags as icons
  - [] rating fölülre a control-ba.
  - [] amplification, settings, mail bekötése. mail:bugreport/feature request/feedback/...
  - [] folder app megcsinálása..
@@ -71,10 +70,4 @@
 
  - website
  
- == BUGS ==
  
- 
- == DONE ==
- + load music asap
- - chromeless -> kipróbáltam, nem jó
- - kipróbálni a playlistet bal oldalt, kicsiben -> nem rossz, de talán
