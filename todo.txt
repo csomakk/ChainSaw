@@ -1,5 +1,6 @@
  
- 
+ == INTERESTING
+ - [] 5.1 support w ByteArray http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/media/Sound.html
  == HIGH
  - [] current song labels update on next track!! BUG.
  - [] folder add bugfix - fogalmam sincs mi a hiba, nehéz lesz kiirtani. cs.
