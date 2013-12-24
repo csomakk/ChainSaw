@@ -95,7 +95,7 @@
     <Image toolTip="pause" click="pause()" visible="{paused==-1}" x="50" y="6"
            source="@Embed('/assets/icons/1342554996_Pause Blue Button.png')"/>
     <Image visible="{paused!=-1}" x="50" top="6" click="play()"
-           source="@Embed('/assets/icons/1342554978_Play Blue Button.png" toolTip="play"/>
+           source="@Embed('/assets/icons/1342554978_Play Blue Button.png')" toolTip="play"/>
     <Image x="10" top="4" click="prevSong()" source="@Embed('/assets/icons/1342556807_Previous-Track.png')"
            toolTip="previous"/>
     <Image x="83" top="4" click="nextSong()" source="@Embed('/assets/icons/1342556816_Next-Track.png')"
