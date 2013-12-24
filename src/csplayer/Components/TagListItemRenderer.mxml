@@ -39,8 +39,7 @@
         }
 
         protected function playNow_clickHandler(event:MouseEvent):void {
-            var ac:ArrayCollection = Library.instance.getAllWithTag(data as Tag);
-            PlayList.instance.playlist = ac;
+            PlayList.instance.playlist = Library.instance.getAllWithTag(data as Tag);
             PlayList.instance.currentSong = 0;
             Control.instance.play();
         }
@@ -52,7 +51,7 @@
 
         protected function tagSettings_clickHandler(event:MouseEvent):void {
 
-            var tagSettings:TagSettingsPopup = new TagSettingsPopup()
+            var tagSettings:TagSettingsPopup = new TagSettingsPopup();
             tagSettings.x = 200;
             tagSettings.y = 200;
             MainContainer.instance.addElement(tagSettings);
