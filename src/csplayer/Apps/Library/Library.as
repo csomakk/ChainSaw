@@ -195,7 +195,10 @@ public class Library {
                 id3Sound.addEventListener(Event.ID3, id3Ready)
             } // if not mp3, and files is empty, the clock event will handle it.
             ticks = 0;
-            if (files.length == 0) timer.stop();
+            if (files.length == 0){
+                timer.stop();
+                saveLibrary();
+            }
         }
 
         function id3Ready(e:Event = null):void {
