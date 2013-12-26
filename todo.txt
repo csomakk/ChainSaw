@@ -1,8 +1,9 @@
  
  == INTERESTING
  - [] 5.1 support w ByteArray http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/media/Sound.html
+
  == HIGH
- - [] amplification, settings, mail bekötése. mail:bugreport/feature request/feedback/...
+
  
  == EASY
  - [] good random. every open increaze size of library with new random number. 

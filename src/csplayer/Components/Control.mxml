@@ -12,6 +12,7 @@
         import mx.events.FlexEvent;
         import mx.managers.PopUpManager;
 
+        [Bindable]
         public var soundChannel:CsSoundChannel = new CsSoundChannel((Control)(this));
 
         [Bindable]
@@ -82,6 +83,20 @@
             SettingsPopup.instance.y = (stage.stageHeight - SettingsPopup.instance.height) / 2;
             PopUpManager.addPopUp(SettingsPopup.instance, this, true);
         }
+
+        protected function onAmplificationClick(event:MouseEvent):void {
+            var ampPopUp:VolumeSliderPopUp = new VolumeSliderPopUp();
+            ampPopUp.control = this;
+            ampPopUp.x = event.stageX;
+            ampPopUp.y = event.stageY;
+            PopUpManager.addPopUp(ampPopUp, this, false);
+        }
+
+        private function onMailClick():void {
+            var urlReq:URLRequest = new URLRequest("https://github.com/csomakk/ChainSaw/");
+            navigateToURL(urlReq, "_blank");
+        }
+
         ]]>
 	</fx:Script>
     <Rect width="100%" height="100%">
@@ -103,13 +118,14 @@
     <Components:LabelsRenderer x="126" y="25" width="319" data="{currentSong}"/>
     <Image y="3" right="118" width="17" height="17" smooth="true" click="onSettingsClick(event)"
            source="@Embed('/assets/icons/1342893898_monotone_cog_settings_gear.png')" toolTip="settings"/>
-    <Image y="3" right="136" width="17" height="17" smooth="true"
+    <Image y="3" right="136" width="17" height="17" smooth="true" click="onAmplificationClick(event)"
            source="@Embed('/assets/icons/1342554931_sound.png')" toolTip="amplification"/>
-    <Image y="5" right="155" width="14" height="14" smooth="true" source="@Embed('/assets/icons/1342644079_mail.png')"
+    <Image y="5" right="155" width="14" height="14" smooth="true" click="onMailClick()" 
+           source="@Embed('/assets/icons/1342644079_mail.png')"
            toolTip="bug report / feature request"/>
     <Label id="statusLabel" right="160" top="25" backgroundColor="#FBFBFB" text="Label"
            textAlign="right" verticalAlign="middle"/>
-    <Components:Rating y="5" right="177" soundTrack="{currentSong}"/>
+    <Components:Rating y="5" right="177" soundTrack="{ currentSong }"/>
 
 
 </Group>

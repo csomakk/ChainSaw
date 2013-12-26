@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+        mouseDownOutside="close()">
+    <fx:Script><![CDATA[
+        import mx.managers.PopUpManager;
+
+        [Bindable]
+        public var control:Control;
+
+        private function close(event:MouseEvent = null):void {
+            PopUpManager.removePopUp(this);
+        }
+
+        private function vSlider1_changeHandler(event:Event):void {
+            control.soundChannel.volume = volumeSlider.value;
+        }
+
+        ]]></fx:Script>
+    <s:HSlider id="volumeSlider"
+               minimum="0" maximum="1.5" value="{ control.soundChannel.volume }" stepSize="0.01"
+               x="5" y="5"
+               change="vSlider1_changeHandler(event)" >
+    </s:HSlider>
+    <s:Image right="7" top="-25" width="19" height="19" click="close(event)" smooth="true"
+             source="@Embed('/assets/icons/1341143725_cancel.png')"/>
+
+</s:Panel>

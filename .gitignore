@@ -1,4 +1,5 @@
 .idea/workspace.xml
 out
+install
 !install/ChainSaw.air
 !install/updateDescriptor.xml

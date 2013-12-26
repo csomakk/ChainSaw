@@ -5,6 +5,7 @@ import csplayer.Containers.MainContainer;
 import flash.events.*;
 import flash.media.*;
 import flash.net.*;
+import flash.sampler.startSampling;
 import flash.utils.*;
 
 [Bindable]
@@ -59,7 +60,16 @@ public class CsSoundChannel {
         myChannel.soundTransform = transform;
     }
 
-    public function setVolume(vol:Number):void {
+    private var _volume:Number = 1;
+
+    [Bindable(event="volumeChange")]
+    public function get volume():Number {
+        return _volume
+    }
+
+    public function set volume(vol:Number):void {
+        _volume = vol;
+        dispatchEvent(new Event("volumeChange"));
         var st:SoundTransform = new SoundTransform(vol, 0);
         setSoundTransform(st);
     }
