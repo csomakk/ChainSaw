@@ -111,9 +111,6 @@
         }
 
         public function layoutShuffleAll():void {
-            /* if(vbox.numElements>1) {
-             vbox.removeElementAt(1);
-             } */
             playList.shuffleAll()
         }
 
