@@ -114,8 +114,8 @@
             playList.shuffleAll()
         }
 
-        private function keyDownHandler2(event:KeyboardEvent):void {
-            if ( event.keyCode == Keyboard.F12) {
+        private static function keyDownHandler2(event:KeyboardEvent):void {
+            if (event.keyCode == Keyboard.F12) {
                 FlexSpy.show();
             }
         }
