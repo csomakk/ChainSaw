@@ -57,7 +57,24 @@
  - [] library column width - save and load
  - [] log 
  
-  
+
+== tbd.  
+ Manages all your media and supports a number of formats including MP3, AAC, M4A, MPC, OGG, FLAC, APE, Opus, TAK, WV, WMA and WAV.P
+Create and manage playlists, and "smart" playlists that update based on custom filtersP
+Enqueue songs into a "Now Playing" pane for on-the-go playlist creation.P
+Watch folders on your hard drive for changes and automatically adjust your library accordinglyP
+Import libraries from iTunes and Windows Media PlayerP
+Sync Android phones, USB drives, some iPods, and many other portable music devices with your libraryP
+Convert files on-the-fly as you sync to your devicesP
+Auto-tag your music using the music databases of your choiceP
+Keep your files automatically organized in folder based on tagsP
+Customize a number of different keyboard shortcutsP
+Subscribe, download, and listen to podcasts, either by searching MusicBee's podcast directory or by adding feeds yourselfP
+Use advanced audio features like a 10-band equalizer, crossfade, WASAPI and ASIO playback, and moreP
+Customize your player with skins, different layouts and views, and three different players including a mini player and compact playerP
+A plugin architecture that lets you add lots of functionality to the player, like extra supported formats, skins, library organization tools, and other features (Winamp plugins supported)P
+An integrated browser that allows you to browse for just about anything in-player (useful for browsing plug-ins, skins, and so on)
+ 
  == FAR FUTURE
  
  - [] ios, android (stream?) 
