@@ -10,7 +10,6 @@
  	this will be the "size" of your library. if its out of scope, than
  	mod n. this is good, so shuffle will be even better. also check if
  	current shuffle works fine..
- - [] tag search in addTagPopup, and TagList. Filter should work here
  - [] new slider, 2 px height, ...
  - [] right click - disabled face share, edit
  - [] add label playlisthez (összes számhoz ad) bekötése

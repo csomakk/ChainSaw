@@ -4,6 +4,7 @@ import flash.filesystem.File;
 import mx.collections.ArrayCollection;
 
 public class TagManager {
+    [Bindable]
     public var tags:ArrayCollection = new ArrayCollection;
 
     private static var _instance:TagManager;

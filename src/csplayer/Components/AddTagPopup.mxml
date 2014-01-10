@@ -71,7 +71,6 @@
             }
         }
 
-
         protected function onKeyDown(event:KeyboardEvent):void {
             if (event.keyCode == Keyboard.ESCAPE) {
                 close();
