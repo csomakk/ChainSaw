@@ -3,14 +3,15 @@
  - [] 5.1 support w ByteArray http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/media/Sound.html
 
  == HIGH
-
+ - order by artists in library.
  
  == EASY
- - [] good random. every open increaze size of library with new random number. 
+ - [] good random. every open increase size of library with new random number.
  	this will be the "size" of your library. if its out of scope, than
  	mod n. this is good, so shuffle will be even better. also check if
  	current shuffle works fine..
  - [] tag search in addTagPopup, and TagList. Filter should work here
+ - [] new slider, 2 px height, ...
  - [] right click - disabled face share, edit
  - [] add label playlisthez (összes számhoz ad) bekötése
  - [] labels into playlist with squares, labelcolor inside them 3x3. like in left pane

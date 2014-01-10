@@ -118,14 +118,10 @@
 
             PopUpManager.addPopUp(addtag, this, true);
 
-            if (data is Array) addtag.setSoundTrack(data);
-            if (data is Vector.<Object>) addtag.setSoundTrack(data);
-            if (data is SoundTrack) addtag.setSoundTrack([data]);
-            //addtag.addTag()
+            if (data is Array) addtag.setSoundTracks(data);
+            if (data is Vector.<Object>) addtag.setSoundTracks(data);
+            if (data is SoundTrack) addtag.setSoundTracks([data]);
 
-            for (var j:int = 0; j < TagManager.instance.tags.length; j++) {
-                addtag.addTag(TagManager.instance.tags[j]);
-            }
         }
 
         protected function datarenderer1_creationCompleteHandler(event:FlexEvent):void {

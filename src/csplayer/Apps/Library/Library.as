@@ -1,6 +1,7 @@
 package csplayer.Apps.Library {
 import csplayer.Classes.CsUtils;
 import csplayer.Classes.SoundTrack;
+import csplayer.Classes.SoundTrack;
 import csplayer.Classes.Tag;
 import csplayer.Classes.TagManager;
 import csplayer.Components.Control;
@@ -91,7 +92,7 @@ public class Library {
             file = file.resolvePath("library.xml");
             var xml:XML = new XML("<library/>");
             for (var i:String in soundTracks) {
-                xml.appendChild(soundTracks[i].convertToXML());
+                xml.appendChild((soundTracks[i] as SoundTrack).convertToXML());
             }
             CsUtils.saveAsXML(xml, file.url);
 

@@ -124,7 +124,6 @@
 
     <mx:HDividedBox id="vbox" left="130" right="10" top="73" bottom="10">
         <Playlist:PlayList id="playList" height="100%" creationComplete="playList_creationCompleteHandler(event)"/>
-        <!--<ns1:Library id="library"/>--><!--ezt mostmár runtime adjuk-->
     </mx:HDividedBox>
 
     <s:VGroup left="10" top="70" bottom="10" width="110" gap="15">

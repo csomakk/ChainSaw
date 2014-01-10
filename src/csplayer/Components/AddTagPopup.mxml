@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:Panel xmlns:fx="http://ns.adobe.com/mxml/2009"
          xmlns:s="library://ns.adobe.com/flex/spark"
-         creationComplete="panel1_creationCompleteHandler(event)"
-         keyDown="panel1_keyDownHandler(event)"
-         width="214" height="300" title="Tag as:">
+         initialize="onInit(event)"
+         creationComplete="onCreationComplete(event)"
+         keyDown="onKeyDown(event)"
+         width="214" height="300"
+         title="Tag as:">
 
     <fx:Script>
 		<![CDATA[
@@ -18,41 +20,47 @@
 
         import spark.components.Group;
         import spark.events.IndexChangeEvent;
+        import spark.events.TextOperationEvent;
 
-        private var _st:Vector.<SoundTrack> = new Vector.<SoundTrack>();
+        protected var selectedSoundTracks:Vector.<SoundTrack> = new Vector.<SoundTrack>();
+
         [Bindable]
-        private var _tags:ArrayCollection = new ArrayCollection();
+        protected var filteredTags:ArrayCollection;
 
-        public function setSoundTrack(st:Object):void {
-            for each (var s:Object in st) {
-                if (s is SoundTrack) _st.push(s);
+        protected function onInit(event:FlexEvent):void {
+            refreshAvailableTags();
+        }
+
+        protected function onCreationComplete(event:FlexEvent):void {
+            addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, close);
+        }
+
+        public function setSoundTracks(st:Object):void {
+            for each (var soundTrack:Object in st) {
+                if (soundTrack is SoundTrack) selectedSoundTracks.push(soundTrack);
             }
 
-            list.addEventListener(IndexChangeEvent.CHANGE, change)
+            list.addEventListener(IndexChangeEvent.CHANGE, onListSelection);
         }
 
-        public function addTag(tag:Tag):void {
-            _tags.addItem(tag)
+        protected function refreshAvailableTags():void {
+            filteredTags = new ArrayCollection();
+            for (var j:int = 0; j < TagManager.instance.tags.length; j++) {
+                filteredTags.addItem(TagManager.instance.tags[j]);
+            }
+            filteredTags.filterFunction = searchFilter;
         }
 
-        protected function change(event:IndexChangeEvent):void {
+        protected function onListSelection(event:IndexChangeEvent):void {
             changeTag(list.selectedItem as Tag);
         }
 
         protected function changeTag(tag:Tag):void {
-            for each(var s:SoundTrack in _st) {
+            for each(var s:SoundTrack in selectedSoundTracks) {
                 s.addTag(tag);
             }
 
-            //hogy frissüljön:
-            if (parent is LabelsRenderer) (parent as LabelsRenderer).dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
-            dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
-            if (s) {
-                s.rating--;
-                s.rating++;
-            }
-
-            close()
+            close();
         }
 
         public function close(e:Event = null):void {
@@ -63,29 +71,35 @@
             }
         }
 
-        protected function panel1_creationCompleteHandler(event:FlexEvent):void {
-            addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, close);
-            addEventListener(KeyboardEvent.KEY_DOWN, panel1_keyDownHandler);
+
+        protected function onKeyDown(event:KeyboardEvent):void {
+            if (event.keyCode == Keyboard.ESCAPE) {
+                close();
+            }
         }
 
-        protected function panel1_keyDownHandler(event:KeyboardEvent):void {
-            if (event.keyCode == Keyboard.ESCAPE) close()
-        }
-
-        protected function textinput1_enterHandler(event:FlexEvent):void {
+        protected function onTextInputEnter(event:FlexEvent):void {
             var t:Tag = new Tag(textInput.text);
             TagManager.instance.addTag(t);
             changeTag(t);
             TagList.instance.refresh();
         }
+
+        protected function searchFilter(item:Object):Boolean {
+            return Tag(item).nameWithoutSpecs().search(textInput.text) != -1;
+        }
+
+        protected function onTextInputChange(event:TextOperationEvent):void {
+            filteredTags.refresh();
+        }
         ]]>
 	</fx:Script>
 
 
-    <s:TextInput id="textInput" x="10" y="10" width="170" enter="textinput1_enterHandler(event)"/>
+    <s:TextInput id="textInput" x="10" y="10" width="170" change="onTextInputChange(event)" enter="onTextInputEnter(event)"/>
     <s:Image y="11" right="8" width="21" height="21" smooth="true" source="@Embed('/assets/icons/search.png')"/>
     <s:List id="list"
-            dataProvider="{_tags}"
+            dataProvider="{ filteredTags }"
             itemRenderer="csplayer.Components.LabelRenderer2"
             left="10" right="9" top="40" bottom="10">
     </s:List>

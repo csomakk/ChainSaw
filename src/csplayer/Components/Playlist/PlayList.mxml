@@ -34,16 +34,12 @@
         }
 
         public function shuffleAll():void {
-            clear();
+            clearPlaylist();
             playlist.addAll(Library.instance.soundTracks);
             currentSong = Math.random() * playlist.length;
             for (var i:int = playlist.length - 1; i > -1; i--) {
                 var st:SoundTrack = playlist[i] as SoundTrack;
-                var remove:Boolean = false;
-                for each(var tag:Tag in st.labels) {
-                    if (tag.shuffleAllDisabled) remove = true;
-                }
-                if (remove) playlist.removeItemAt(i);
+                if (st.isDisabledForShuffleAll()) playlist.removeItemAt(i);
             }
 
             shuffle();
@@ -67,8 +63,8 @@
             }
         }
 
-        protected function clear(event:MouseEvent = null):void {
-            playlist = new ArrayCollection()
+        protected function clearPlaylist(event:MouseEvent = null):void {
+            playlist = new ArrayCollection();
         }
 
         public function next():SoundTrack {
@@ -188,10 +184,8 @@
         protected function addLabel_clickHandler(event:MouseEvent):void {
             var addtag:AddTagPopup = new AddTagPopup();
             addElement(addtag);
-            addtag.setSoundTrack(playlist);
-            for (var j:int = 0; j < TagManager.instance.tags.length; j++) {
-                addtag.addTag(TagManager.instance.tags[j]);
-            }
+            addtag.setSoundTracks(playlist);
+
         }
         ]]>
 	</fx:Script>
@@ -222,7 +216,7 @@
            source="@Embed('/assets/icons/1342554918_shuffle.png')"
            toolTip="shuffle"/>
     <Image x="196" top="10" width="24" height="24"
-           click="clear()"
+           click="clearPlaylist()"
            smooth="true"
            source="@Embed('/assets/icons/1342554922_recycle.png')"
            toolTip="clear"/>

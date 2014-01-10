@@ -1,6 +1,10 @@
 package csplayer.Classes {
-/**Defines a SoundTrack.*/
-public class SoundTrack {
+
+import flash.events.EventDispatcher;
+
+import mx.events.FlexEvent;
+
+public class SoundTrack extends EventDispatcher {
 
     [Bindable]
     public var urlString:String = "";
@@ -40,7 +44,15 @@ public class SoundTrack {
     }
 
     public function addTag(tag:Tag):void {
-        if (hasTag(tag) == false) labels.push(tag)
+        if (hasTag(tag) == false) labels.push(tag);
+        dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
+    }
+
+    public function isDisabledForShuffleAll():Boolean {
+        for each(var tag:Tag in labels) {
+            if (tag.shuffleAllDisabled) return true;
+        }
+        return false;
     }
 
 
