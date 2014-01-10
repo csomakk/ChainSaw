@@ -78,31 +78,35 @@
             }
         }
 
-        protected function onTextInputEnter(event:FlexEvent):void {
-            var t:Tag = new Tag(textInput.text);
+        protected function onSearchTextInputEnter(event:FlexEvent):void {
+            var t:Tag = new Tag(searchTextInput.text);
             TagManager.instance.addTag(t);
             changeTag(t);
-            TagList.instance.refresh();
         }
 
         protected function searchFilter(item:Object):Boolean {
-            return Tag(item).nameWithoutSpecs().search(textInput.text) != -1;
+            return Tag(item).nameWithoutSpecs().search(searchTextInput.text) != -1;
         }
 
-        protected function onTextInputChange(event:TextOperationEvent):void {
+        protected function onSearchTextInputChange(event:TextOperationEvent):void {
             filteredTags.refresh();
         }
         ]]>
 	</fx:Script>
 
 
-    <s:TextInput id="textInput" x="10" y="10" width="170" change="onTextInputChange(event)" enter="onTextInputEnter(event)"/>
-    <s:Image y="11" right="8" width="21" height="21" smooth="true" source="@Embed('/assets/icons/search.png')"/>
+    <s:TextInput id="searchTextInput"
+                 x="10" y="10" width="170"
+                 change="onSearchTextInputChange(event)"
+                 enter="onSearchTextInputEnter(event)"/>
+    <s:Image y="11" right="8" width="21" height="21" smooth="true"
+             source="@Embed('/assets/icons/search.png')"/>
     <s:List id="list"
             dataProvider="{ filteredTags }"
             itemRenderer="csplayer.Components.LabelRenderer2"
             left="10" right="9" top="40" bottom="10">
     </s:List>
-    <s:Image y="-25" right="6" width="19" height="19" click="close(event)" smooth="true"
+    <s:Image y="-25" right="6" width="19" height="19" smooth="true"
+             click="close(event)"
              source="@Embed('/assets/icons/1341143725_cancel.png')"/>
 </s:Panel>

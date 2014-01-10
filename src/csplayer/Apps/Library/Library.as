@@ -78,9 +78,6 @@ public class Library {
                 }//for each node
             }//if !=null
         }//if file exists
-
-        TagList.instance.refresh()
-
     }//loadLibrary()
 
 

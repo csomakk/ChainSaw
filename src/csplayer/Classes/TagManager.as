@@ -4,11 +4,10 @@ import flash.filesystem.File;
 import mx.collections.ArrayCollection;
 
 public class TagManager {
-    public var tags:Vector.<Tag> = new Vector.<Tag>();
+    public var tags:ArrayCollection = new ArrayCollection;
 
     private static var _instance:TagManager;
 
-    /**singleton konstr*/
     public function TagManager() {
         load();
     }
@@ -27,11 +26,11 @@ public class TagManager {
     }
 
     public function addTag(tag:Tag):void {
-        tags.push(tag);
+        tags.addItem(tag);
     }
 
     public function addIfNotHas(tag:String):void {
-        if (has(tag) == false) tags.push(new Tag(tag))
+        if (has(tag) == false) tags.addItem(new Tag(tag))
     }
 
     public function has(tag:String):Boolean {
@@ -85,7 +84,7 @@ public class TagManager {
         var file:File = File.applicationStorageDirectory;
         file = file.resolvePath("tagmanager.xml");
         if (file.exists) {
-            var xml:XML = CsUtils.loadXML(file.url)
+            var xml:XML = CsUtils.loadXML(file.url);
             if (xml != null) {
                 for each (var node:XML in xml.tag) {
                     var tag:Tag = new Tag();
@@ -94,7 +93,7 @@ public class TagManager {
                     tag.nameWithSpecs = node.nameWithSpecs;
                     tag.textColor = node.textColor;
                     if (node.shuffleAllDisabled == "true") tag.shuffleAllDisabled = true;
-                    tags.push(tag)
+                    tags.addItem(tag)
                 }//for each node
             }//if !=null
         }//if file exists

@@ -32,7 +32,7 @@
                     }
                 } else {
                     var t:Tag = new Tag(ti.text);
-                    TagManager.instance.tags.push(t);
+                    TagManager.instance.tags.addItem(t);
                     theSound.addTag(t);
                 }
             }
