@@ -4,7 +4,7 @@
          xmlns:mx="library://ns.adobe.com/flex/mx"
          xmlns:Playlist="csplayer.Components.Playlist.*"
          xmlns:Components="csplayer.Components.*"
-         xmlns:Classes="csplayer.Classes.*"
+         xmlns:youtube="csplayer.Classes.youTube.*"
          initialize="group1_initializeHandler(event)"
          keyDown="keyDownHandler2(event)"
          width="100%" height="100%">
@@ -131,6 +131,7 @@
         <Components:TagList width="100%" height="100%"/>
     </s:VGroup>
     <Components:Control id="control" left="0" right="0" top="0" height="63"/>
-    <Classes:YoutubePlayer id="ytPlayer" visible="{control.currentSong.urlString.search('yt://')==0}"
+    <youtube:YoutubePlayer id="ytPlayer"
+                           visible="{ control.currentSong.urlString.search(YoutubePlayer.YT_PREFIX) == 0 }"
                            right="0" width="110" height="62"/>
 </s:Group>

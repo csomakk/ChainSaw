@@ -4,29 +4,24 @@
          xmlns:mx="library://ns.adobe.com/flex/mx"
          xmlns:Classes="csplayer.Classes.*"
          creationComplete="onCreationComplete(event)"
-         doubleClick="group1_doubleClickHandler(event)"
+         doubleClick="onDoubleClick(event)"
          width="100%" height="100%">
     <fx:Script>
 		<![CDATA[
+        import csplayer.Classes.*;
         import csplayer.Components.Control;
 
         import mx.controls.Alert;
         import mx.events.FlexEvent;
 
-        public static var YT_UNSTARTED:int = -1;
-        public static var YT_ENDED:int = 0;
-        public static var YT_PLAYING:int = 1;
-        public static var YT_PAUSED:int = 2;
-        public static var YT_BUFFERING:int = 3;
-        public static var YT_CUED:int = 5;
+        public static const YT_PREFIX:String = "yt://";
 
-        protected var loader:SafeLoader = new SafeLoader();
         [Bindable]
         protected var player:Object;
         protected var timer:Timer;
         public var isReady:Boolean = false;
-        [Bindable]
-        public var rolled:Boolean = false;
+        public var lastID:String;
+        protected var loader:SafeLoader = new SafeLoader();
 
         public static var instance:YoutubePlayer;
 
@@ -41,27 +36,52 @@
 
         protected function onLoaderInit(event:Event):void {
             trace("youtubePlayer: onLoader");
-            loader.content.addEventListener("uncaughtError", onUncaugthError);
-            loader.content.addEventListener("onReady", onPlayerReady);
-            loader.content.addEventListener("onError", onPlayerError);
-            loader.content.addEventListener("onStateChange", onPlayerStateChange);
-            loader.content.addEventListener("onPlaybackQualityChange", onVideoPlaybackQualityChange);
+            loader.content.addEventListener(YouTubeEvent.UNCAUGHT_ERROR, onUncaugthError);
+            loader.content.addEventListener(YouTubeEvent.READY, onPlayerReady);
+            loader.content.addEventListener(YouTubeEvent.ERROR, onPlayerError);
+            loader.content.addEventListener(YouTubeEvent.STATE_CHANGE, onPlayerStateChange);
+            loader.content.addEventListener(YouTubeEvent.PLAYBACK_QUALITY_CHANGE, onVideoPlaybackQualityChange);
 
         }
 
         /** num is 0-100*/
-        public function setVolume(num:Number):void {
-            player.setVolume(num);
+        public function setVolume(number0to100:Number):void {
+            player.setVolume(number0to100);
+        }
+
+        /** Returns the elapsed time in seconds since the video started playing. */
+        public function get elapsedTime():Number {
+            return player.getCurrentTime();
+        }
+
+        /** Returns the elapsed time in seconds since the video started playing. */
+        public function get duration():Number {
+            return player.getDuration();
+        }
+
+        /**Returns a number between 0 and 1 that specifies the percentage of the video that the
+         * player shows as buffered. This method returns a more reliable number than the
+         * now-deprecated getVideoBytesLoaded and getVideoBytesTotal methods.*/
+        public function get bufferedPercent():Number {
+            return player.getVideoLoadedFraction();
+        }
+
+        public function pause():void {
+            player.pauseVideo();
         }
 
         public function loadVideo(id:String):void {
-            player.cueVideoById(id);
-            trace("youtubePlayer: playing", id);
-            player.playVideo();
-
+            if (id == lastID) {
+                player.playVideo();
+            } else {
+                lastID = id;
+                player.cueVideoById(id);
+                trace("youtubePlayer: playing", id);
+                player.playVideo();
+            }
 
             timer = new Timer(1000 / 24, 0);
-            timer.addEventListener(TimerEvent.TIMER, refreshTekero);
+            timer.addEventListener(TimerEvent.TIMER, updateSlider);
             timer.start();
         }
 
@@ -81,33 +101,34 @@
         }
 
 
-        protected function refreshTekero(e:Event):void {
-
+        protected function updateSlider(e:Event):void {
+            Control.instance.seekSlider.bufferPosition = bufferedPercent;
+            Control.instance.seekSlider.value = elapsedTime / duration;
         }
 
-        protected function swfLoader_securityErrorHandler(event:SecurityErrorEvent):void {
+        protected static function onSwfLoaderSecurityErrorHandler(event:SecurityErrorEvent):void {
             trace("youtubePlayer: swfLoader_securityErrorHandler", event);
         }
 
-        protected function onPlayerError(event:Event):void {
+        protected static function onPlayerError(event:Event):void {
             trace("youtubePlayer: onPlayerError", Object(event).data, "Error");
             var err:Number = Object(event).data;
             if (err == 100 || err == 101 || err == 150)
                 Alert.show("The video has been marked private or the embedded playback is disabled by the owner, or the owner of Youtube. please find an alternative to this video. bocsika..", "Unable to play video")
         }
 
-        protected function onPlayerStateChange(event:Event):void {
+        protected static function onPlayerStateChange(event:Event):void {
             trace("youtubePlayer: player state:", Object(event).data);
-            if (Object(event).data == YT_ENDED) {
+            if (Object(event).data == YouTubeState.ENDED) {
                 Control.instance.nextSong();
             }
         }
 
-        protected function onVideoPlaybackQualityChange(event:Event):void {
+        protected static function onVideoPlaybackQualityChange(event:Event):void {
             trace("youtubePlayer: video quality:", Object(event).data);
         }
 
-        protected function onIOError(event:IOErrorEvent):void {
+        protected static function onIOError(event:IOErrorEvent):void {
             trace("youtubePlayer: onIOERROR", event)
         }
 
@@ -146,13 +167,14 @@
             bottom = undefined;
         }
 
-        protected function onUncaugthError(event:Event):void {
+        protected static function onUncaugthError(event:Event):void {
+            //error in ad.
             trace("YoutubePlayer: onUncaugthError");
             event.stopImmediatePropagation();
             event.stopPropagation();
         }
 
-        protected function group1_doubleClickHandler(event:MouseEvent):void {
+        protected function onDoubleClick(event:MouseEvent):void {
             toggleFullScreen();
         }
         ]]>
@@ -167,7 +189,7 @@
     <Classes:SafeSWFLoader id="swfLoader"
                            x="10" y="0" width="100%" height="100%"
                            autoLoad="true" maintainAspectRatio="true" scaleContent="true"
-                           securityError="swfLoader_securityErrorHandler(event)"/>
+                           securityError="onSwfLoaderSecurityErrorHandler(event)"/>
     <s:Image id="toggleFullScreenImg" left="0" width="20" height="20"
              click="toggleFullScreen(event)" smooth="true"
              source="@Embed('/assets/icons/1350159271_gtk-leave-fullscreen.png')" verticalCenter="0"/>

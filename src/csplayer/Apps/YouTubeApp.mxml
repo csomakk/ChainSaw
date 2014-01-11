@@ -9,6 +9,7 @@
 		<![CDATA[
         import csplayer.Apps.Library.Library;
         import csplayer.Classes.SoundTrack;
+        import csplayer.Classes.youTube.YoutubePlayer;
 
         import mx.events.FlexEvent;
         import mx.managers.PopUpManager;
@@ -31,7 +32,7 @@
             st.artist = "youtube";
             st.title = video_id;
 
-            st.urlString = "yt://" + video_id;
+            st.urlString = YoutubePlayer.YT_PREFIX + video_id;
 
             var edit:SongEdit = new SongEdit;
             edit.setSoundTrack(st);

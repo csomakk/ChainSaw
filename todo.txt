@@ -1,7 +1,3 @@
- 
- == INTERESTING
- - [] 5.1 support w ByteArray http://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/flash/media/Sound.html
-
  == HIGH
  - order by artists in library.
  
@@ -10,9 +6,8 @@
  	this will be the "size" of your library. if its out of scope, than
  	mod n. this is good, so shuffle will be even better. also check if
  	current shuffle works fine..
- - [] new slider, 2 px height, ...
+ - [] on long playlist, have a jump to now playing..
  - [] right click - disabled face share, edit
- - [] add label playlisthez (összes számhoz ad) bekötése
  - [] labels into playlist with squares, labelcolor inside them 3x3. like in left pane
  - [] playlist label editor as popup. (auto close on click outside)
  

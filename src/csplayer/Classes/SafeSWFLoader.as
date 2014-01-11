@@ -1,4 +1,6 @@
 package csplayer.Classes {
+import csplayer.Classes.youTube.YoutubePlayer;
+
 import flash.display.Stage;
 import flash.events.SecurityErrorEvent;
 

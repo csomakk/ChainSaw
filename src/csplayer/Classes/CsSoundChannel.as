@@ -1,4 +1,5 @@
 package csplayer.Classes {
+import csplayer.Classes.youTube.YoutubePlayer;
 import csplayer.Components.Control;
 import csplayer.Containers.MainContainer;
 
@@ -27,15 +28,13 @@ public class CsSoundChannel {
     }
 
     public function seekUpdate(e:Event):void {
-        var lenght:Number = csSound.length;
+        var length:Number = csSound.length;
         var position:Number = myChannel.position;
-        control.seekSlider.maximum = lenght;
-        control.seekSlider.value = position;
-        control.seekText.text = timeToString(position) + " / " + timeToString(lenght);
+        control.seekSlider.value = position / length;
+        control.seekText.text = timeToString(position) + " / " + timeToString(length);
     }
 
     public function seekRadio():void {
-        control.seekSlider.maximum = 0;
         control.seekSlider.value = 0;
         control.seekText.text = "??/infinity";
     }
@@ -80,6 +79,10 @@ public class CsSoundChannel {
         }
     }
 
+    public static function isYouTube(url:String):Boolean {
+        return url.search(YoutubePlayer.YT_PREFIX) == 0;
+    }
+
     //play from url. sometimes resume from pause. thats pos, and rate.
     public function playSound(url:String, position:Number = 0.0, rate:Number = 1.0):void {
         var nextReq:URLRequest = new URLRequest(url);
@@ -90,34 +93,30 @@ public class CsSoundChannel {
             myChannel.soundTransform = mySoundTransform;
             seekTimer.addEventListener(TimerEvent.TIMER, seekUpdate);
             seekTimer.start();
-
         }
 
         function callNextSong(e:Event):void {
             control.onSoundComplete();
         }
 
-        csSound = new Sound();
-        csSound.addEventListener(Event.COMPLETE, complete);//if loaded.
-        if (url.search("http") == -1) {
-            //ha nincs az urlben http, local
-            if (url.search("yt://") == 0) {
-                trace("CsSoundChannel: playing yt, id: ", url.substr(5));
-                if (MainContainer.instance.ytPlayer.isReady) {
-                    MainContainer.instance.ytPlayer.loadVideo(url.substr(5));
-                } else {
-                    playWhenYTReady = url.substr(5);
-                }
+        if (isYouTube(url)) {
+            trace("CsSoundChannel: playing yt, id: ", url.substr(YoutubePlayer.YT_PREFIX.length));
+            if (MainContainer.instance.ytPlayer.isReady) {
+                MainContainer.instance.ytPlayer.loadVideo(url.substr(YoutubePlayer.YT_PREFIX.length));
             } else {
-                csSound.load(nextReq);
+                playWhenYTReady = url.substr(YoutubePlayer.YT_PREFIX.length);
             }
-
-        } else {
-            //ha van, rádió
+        } else if (url.search("http") == 0) {
+            //online radio
             csSound = new Sound(nextReq);
+            csSound.addEventListener(Event.COMPLETE, complete);//if loaded.
             myChannel = csSound.play();
             myChannel.soundTransform = mySoundTransform;
             seekRadio();
+        } else {
+            csSound = new Sound();
+            csSound.addEventListener(Event.COMPLETE, complete);//if loaded.
+            csSound.load(nextReq);
         }
     }
 }//class csSoundChannel

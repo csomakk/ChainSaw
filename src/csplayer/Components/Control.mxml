@@ -7,7 +7,9 @@
 		<![CDATA[
         import csplayer.Classes.CsSoundChannel;
         import csplayer.Classes.SoundTrack;
+        import csplayer.Classes.youTube.YoutubePlayer;
         import csplayer.Components.Playlist.PlayList;
+        import csplayer.CsColors;
 
         import mx.events.FlexEvent;
         import mx.managers.PopUpManager;
@@ -40,6 +42,10 @@
             }
         }
 
+        public function isYouTube():Boolean {
+            return CsSoundChannel.isYouTube(currentSong.urlString);
+        }
+
         public function onSoundComplete(e:Event = null):void {
             isSoundPlaying = false;
             nextSong();
@@ -69,12 +75,24 @@
         }
 
         protected function pause(event:MouseEvent = null):void {
-            paused = soundChannel.myChannel.position;
+            if (isYouTube()) {
+                paused = YoutubePlayer.instance.elapsedTime;
+            } else {
+                paused = soundChannel.myChannel.position;
+            }
+
             stop();
         }
 
         public function stop():void {
-            soundChannel.myChannel.stop();
+            if (isYouTube()) {
+                if (YoutubePlayer.instance) {
+                    YoutubePlayer.instance.pause();
+                }
+            } else {
+                soundChannel.myChannel.stop();
+            }
+
             isSoundPlaying = false;
         }
 
@@ -92,24 +110,23 @@
             PopUpManager.addPopUp(ampPopUp, this, false);
         }
 
-        private function onMailClick():void {
+        private static function onMailClick():void {
             var urlReq:URLRequest = new URLRequest("https://github.com/csomakk/ChainSaw/");
             navigateToURL(urlReq, "_blank");
         }
-
         ]]>
 	</fx:Script>
     <Rect width="100%" height="100%">
         <fill>
-            <SolidColor color="0xFBFBFB"/>
+            <SolidColor color=" { CsColors.SOLID_GREY } "/>
         </fill>
     </Rect>
-    <HSlider id="seekSlider" left="83" right="118" bottom="3"/>
+    <Components:PositionSlider id="seekSlider" left="0" right="118"/>
     <Label id="current" y="10" left="131" fontSize="15" fontWeight="bold" text="Label"/>
     <Label id="seekText" x="5" bottom="3" width="70" text="0:00 / 3:21" textAlign="center"/>
     <Image toolTip="pause" click="pause()" visible="{paused==-1}" x="50" y="6"
            source="@Embed('/assets/icons/1342554996_Pause Blue Button.png')"/>
-    <Image visible="{paused!=-1}" x="50" top="6" click="play()"
+    <Image visible="{ paused != -1 }" x="50" top="6" click="play()"
            source="@Embed('/assets/icons/1342554978_Play Blue Button.png')" toolTip="play"/>
     <Image x="10" top="4" click="prevSong()" source="@Embed('/assets/icons/1342556807_Previous-Track.png')"
            toolTip="previous"/>

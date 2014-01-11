@@ -8,6 +8,7 @@
     <fx:Script>
 		<![CDATA[
         import csplayer.Classes.SoundTrack;
+        import csplayer.CsColors;
 
         import mx.events.FlexEvent;
 
@@ -28,8 +29,6 @@
                 currentState = "separator";
                 separatorText = (data as LibraryListViewSeparator).display;
             }
-
-
         }
 
         protected function itemrenderer1_removeHandler(event:FlexEvent):void {
@@ -50,7 +49,7 @@
     <s:Label id="artist"
              includeIn="separator"
              width="100%" height="20"
-             backgroundColor="#9ED6FA"
+             backgroundColor="{ CsColors.LIGHT_BLUE }"
              fontSize="16" fontStyle="normal" fontWeight="bold"
              text="{separatorText}"
              textAlign="center" verticalAlign="middle"/>
