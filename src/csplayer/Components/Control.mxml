@@ -24,6 +24,8 @@
         public static var instance:Control;
         public var isSoundPlaying:Boolean = false;
 
+        private var seekTimer:Timer = new Timer( 1000 / 24 );
+
         public function play():void {
             if (isSoundPlaying) stop();
             if (PlayList.instance == null) initCompleteHandler(null);
@@ -40,9 +42,18 @@
                 updateSongInfo();
                 isSoundPlaying = true;
             }
+
+            seekTimer.addEventListener(TimerEvent.TIMER, seekUpdate);
+            seekTimer.start();
+        }
+
+        private function seekUpdate(event:TimerEvent):void {
+            if (isYouTube()) YoutubePlayer.instance.updateSlider();
+            else soundChannel.seekUpdate();
         }
 
         public function isYouTube():Boolean {
+            if (!currentSong) return false;
             return CsSoundChannel.isYouTube(currentSong.urlString);
         }
 
@@ -57,14 +68,14 @@
 
         public function nextSong():void {
             currentSong = PlayList.instance.next();
-            soundChannel.myChannel.stop();
+            stop();
             soundChannel.playSound(currentSong.urlString);
             updateSongInfo();
         }
 
         public function prevSong():void {
             currentSong = PlayList.instance.prev();
-            soundChannel.myChannel.stop();
+            stop();
             soundChannel.playSound(currentSong.urlString);
             updateSongInfo();
         }
@@ -85,13 +96,10 @@
         }
 
         public function stop():void {
-            if (isYouTube()) {
-                if (YoutubePlayer.instance) {
-                    YoutubePlayer.instance.pause();
-                }
-            } else {
-                soundChannel.myChannel.stop();
+            if (YoutubePlayer.instance) {
+                YoutubePlayer.instance.pause();
             }
+            soundChannel.myChannel.stop();
 
             isSoundPlaying = false;
         }

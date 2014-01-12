@@ -17,7 +17,6 @@ public class CsSoundChannel {
     public var myChannel:SoundChannel = new SoundChannel();//ultimate channel
     private var mySoundTransform:SoundTransform = new SoundTransform();
     private var mySoundMixer:SoundMixer = new SoundMixer();
-    private var seekTimer:Timer = new Timer(30, 0);
     private var playWhenYTReady:String;
 
     //def. konstr.
@@ -27,7 +26,7 @@ public class CsSoundChannel {
         myChannel = new SoundChannel();
     }
 
-    public function seekUpdate(e:Event):void {
+    public function seekUpdate():void {
         var length:Number = csSound.length;
         var position:Number = myChannel.position;
         control.seekSlider.value = position / length;
@@ -91,8 +90,6 @@ public class CsSoundChannel {
             myChannel = csSound.play(position);
             myChannel.addEventListener(Event.SOUND_COMPLETE, callNextSong);
             myChannel.soundTransform = mySoundTransform;
-            seekTimer.addEventListener(TimerEvent.TIMER, seekUpdate);
-            seekTimer.start();
         }
 
         function callNextSong(e:Event):void {

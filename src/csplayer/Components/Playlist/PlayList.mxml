@@ -87,7 +87,7 @@
 
         protected function list1_doubleClickHandler(event:MouseEvent):void {
             currentSong = list.selectedIndex;
-            FlexGlobals.topLevelApplication.mainContainer.control.play();
+            Control.instance.play();
         }
 
         public function savePlaylist():void {

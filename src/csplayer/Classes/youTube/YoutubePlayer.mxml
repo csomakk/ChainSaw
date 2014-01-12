@@ -79,10 +79,6 @@
                 trace("youtubePlayer: playing", id);
                 player.playVideo();
             }
-
-            timer = new Timer(1000 / 24, 0);
-            timer.addEventListener(TimerEvent.TIMER, updateSlider);
-            timer.start();
         }
 
         /**return between 0 and 100 */
@@ -101,7 +97,8 @@
         }
 
 
-        protected function updateSlider(e:Event):void {
+        public function updateSlider():void {
+            if (!player) return;
             Control.instance.seekSlider.bufferPosition = bufferedPercent;
             Control.instance.seekSlider.value = elapsedTime / duration;
         }
@@ -117,9 +114,9 @@
                 Alert.show("The video has been marked private or the embedded playback is disabled by the owner, or the owner of Youtube. please find an alternative to this video. bocsika..", "Unable to play video")
         }
 
-        protected static function onPlayerStateChange(event:Event):void {
-            trace("youtubePlayer: player state:", Object(event).data);
-            if (Object(event).data == YouTubeState.ENDED) {
+        protected static function onPlayerStateChange(externalEvent:Object):void {
+            trace("youtubePlayer: player state:", externalEvent.data);
+            if (externalEvent.data == YouTubeState.ENDED) {
                 Control.instance.nextSong();
             }
         }
