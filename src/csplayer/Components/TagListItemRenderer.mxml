@@ -60,7 +60,7 @@
         }
         ]]>
 	</fx:Script>
-    <components:LabelRect color1="{ col1 }" textColor="{ textColor }" />
+    <components:LabelRectRenderer data="{ data }" />
     <s:Label id="lbl" width="90" x="13" y="0" color="0x000000" text="" textAlign="left" verticalAlign="middle"/>
     <s:Image y="0" right="13" width="12" height="12" smooth="true" toolTip="play now"
              source="@Embed('/assets/icons/1342643947_playback_play.png')" click="playNow_clickHandler(event)" visible="{showOptions}"/>

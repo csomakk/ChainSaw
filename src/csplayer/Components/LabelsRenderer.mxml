@@ -2,7 +2,6 @@
 <s:DataRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
                 xmlns:s="library://ns.adobe.com/flex/spark"
                 dataChange="datarenderer1_dataChangeHandler(event)"
-
                 mouseOut="datarenderer1_mouseOutHandler(event)"
                 mouseOver="datarenderer1_mouseOverHandler(event)"
                 creationComplete="datarenderer1_creationCompleteHandler(event)"

@@ -21,9 +21,15 @@
                  height="100%"
                  text="{ (data as SoundTrack).title }"
                  verticalAlign="middle"/>
-        <components:AllLabelAsRect
+        <s:List itemRenderer="csplayer.Components.LabelRectRenderer"
                 width="100"
-                data="{ data as SoundTrack }" />
+                borderVisible="false"
+                contentBackgroundAlpha="0"
+                dataProvider="{ (data as SoundTrack).labels }" >
+            <s:layout>
+                <s:HorizontalLayout />
+            </s:layout>
+        </s:List>
         <s:Label
                  height="100%"
                  text="{ 'by' + (data as SoundTrack).artist }"

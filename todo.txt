@@ -7,7 +7,6 @@
  	current shuffle works fine..
  - [] on long playlist, have a jump to now playing..
  - [] right click - disabled face share, edit
- - [] labels into playlist with squares, labelcolor inside them 3x3. like in left pane
  - [] playlist label editor as popup. (auto close on click outside)
 
  - [] when not youtube anymore..
