@@ -9,11 +9,11 @@
  - [] right click - disabled face share, edit
 
  == LONG
- - [] party mode (admin)
- - [] facebook wall playlist
  - [] youtube
 	- [] share youtube on facebook, like in a google musicban, but to face.
 	- [] import youtube playlists
+ - [] party mode (admin)
+ - [] facebook wall playlist
  - [] tagek folderek vagy fa strukturájuak ha ddd/aaa ddd/bbb akkor ddd egy folder, csak a tagList-ben
  - [] chrome plugin: ha youtube megy, akkor pause, majd resume a végén.. megoldható? Ugyanebben mp3 keresés weboldalon
  - [] option to open .mp3 as default.
@@ -28,7 +28,6 @@
 
    == MEDIUM
    - [] website
-   - [] fix prod images
    - [] auto update after IWatchSeriez
    - [] sleep mode, w timer.
    - [] new label button to left pane label selector
