@@ -2,6 +2,8 @@ package csplayer.Classes {
 
 import flash.events.EventDispatcher;
 
+import mx.collections.ArrayCollection;
+
 import mx.events.FlexEvent;
 
 public class SoundTrack extends EventDispatcher {
@@ -13,7 +15,7 @@ public class SoundTrack extends EventDispatcher {
     [Bindable]
     public var title:String = "";
     [Bindable]
-    public var labels:Vector.<Tag> = new Vector.<Tag>();
+    public var labels:ArrayCollection = new ArrayCollection();
     [Bindable]
     public var rating:Number = 0;
 
@@ -22,16 +24,12 @@ public class SoundTrack extends EventDispatcher {
         urlString = "";
         artist = "";
         title = "";
-        labels = new Vector.<Tag>();
+        labels = new ArrayCollection();
         rating = 0;
     }
 
     public function removeTag(tag:Tag):void {
-        for (var i:int = 0; i < labels.length; i++) {
-            if (labels[i].nameWithSpecs == tag.nameWithSpecs) {
-                labels.splice(i, 1)
-            }
-        }
+        labels.removeItemAt(labels.getItemIndex(tag));
     }
 
     public function hasTag(tag:Tag):Boolean {
@@ -44,7 +42,9 @@ public class SoundTrack extends EventDispatcher {
     }
 
     public function addTag(tag:Tag):void {
-        if (hasTag(tag) == false) labels.push(tag);
+        if (hasTag(tag) == false) {
+            labels.addItem(tag);
+        }
         dispatchEvent(new FlexEvent(FlexEvent.DATA_CHANGE));
     }
 
@@ -53,19 +53,6 @@ public class SoundTrack extends EventDispatcher {
             if (tag.shuffleAllDisabled) return true;
         }
         return false;
-    }
-
-
-    /**if urlString youtube:// true else false*/
-    public static function isYoutube():Boolean {
-        ///TODO!!
-        trace("TODO!! SoundTrack: isYoutube()");
-        return false
-    }
-
-    /**if urlString http:// true else false*/
-    public function isOnline():Boolean {
-        return false
     }
 
     /**convert self to xmlnode*/

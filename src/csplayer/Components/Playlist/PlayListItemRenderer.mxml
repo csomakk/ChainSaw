@@ -2,26 +2,31 @@
 <s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
                 xmlns:s="library://ns.adobe.com/flex/spark"
                 xmlns:mx="library://ns.adobe.com/flex/mx"
+                xmlns:components="csplayer.Components.*"
                 autoDrawBackground="true">
     <fx:Script>
 		<![CDATA[
         import csplayer.Classes.SoundTrack;
         ]]>
 	</fx:Script>
-    <mx:HBox width="100%">
+    <mx:HBox>
         <s:Image visible="{ itemIndex == PlayList.instance.currentSong }"
                  source="@Embed('/assets/icons/1342556059_playsound.png')"/>
-        <s:Label width="22" height="100%" text="{itemIndex}" textAlign="right" verticalAlign="middle"/>
-        <s:Label width="60%"
+        <s:Label width="22"
                  height="100%"
-                 text="{(data as SoundTrack).title}"
+                 text="{ itemIndex }"
+                 textAlign="right"
                  verticalAlign="middle"/>
-        <s:Label height="100%"
-                 text="by"
-                 verticalAlign="middle"/>
-        <s:Label width="30%"
+        <s:Label width="200"
                  height="100%"
-                 text="{(data as SoundTrack).artist}"
+                 text="{ (data as SoundTrack).title }"
+                 verticalAlign="middle"/>
+        <components:AllLabelAsRect
+                width="100"
+                data="{ data as SoundTrack }" />
+        <s:Label
+                 height="100%"
+                 text="{ 'by' + (data as SoundTrack).artist }"
                  verticalAlign="middle"/>
     </mx:HBox>
 </s:ItemRenderer>

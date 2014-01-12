@@ -140,7 +140,7 @@
            toolTip="previous"/>
     <Image x="83" top="4" click="nextSong()" source="@Embed('/assets/icons/1342556816_Next-Track.png')"
            toolTip="next"/>
-    <Components:LabelsRenderer x="126" y="25" width="319" data="{currentSong}"/>
+    <Components:LabelsRenderer x="126" y="25" width="319" data="{ currentSong }"/>
     <Image y="3" right="118" width="17" height="17" smooth="true" click="onSettingsClick(event)"
            source="@Embed('/assets/icons/1342893898_monotone_cog_settings_gear.png')" toolTip="settings"/>
     <Image y="3" right="136" width="17" height="17" smooth="true" click="onAmplificationClick(event)"

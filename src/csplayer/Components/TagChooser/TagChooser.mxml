@@ -28,7 +28,7 @@
             if (ti.text != "") {
                 if (TagManager.instance.has(ti.text)) {
                     if (theSound.hasTag(TagManager.instance.get(ti.text)) == false) {
-                        theSound.labels.push(TagManager.instance.get(ti.text));
+                        theSound.labels.addItem(TagManager.instance.get(ti.text));
                     }
                 } else {
                     var t:Tag = new Tag(ti.text);

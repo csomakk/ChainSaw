@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:components="csplayer.Components.*"
                 color="{col1}"
                 xmlns:s="library://ns.adobe.com/flex/spark"
                 dataChange="itemrenderer1_dataChangeHandler(event)"
@@ -20,14 +20,14 @@
         [Bindable]
         protected var col1:uint = 0x000000;
         [Bindable]
-        protected var txtcolor:uint = 0xFFFFFF;
+        protected var textColor:uint = 0xFFFFFF;
         [Bindable]
         public var showOptions:Boolean = false;
 
         protected function itemrenderer1_dataChangeHandler(event:FlexEvent):void {
             lbl.text = (data as Tag).nameWithoutSpecs();
             col1 = (data as Tag).color1;
-            txtcolor = (data as Tag).textColor;
+            textColor = (data as Tag).textColor;
         }
 
         protected function itemrenderer1_mouseOverHandler(event:MouseEvent):void {
@@ -60,16 +60,7 @@
         }
         ]]>
 	</fx:Script>
-    <s:Rect x="1" y="1" width="10" height="10">
-        <s:fill>
-            <s:SolidColor color="{col1}"/>
-        </s:fill>
-    </s:Rect>
-    <s:Rect x="5" y="5" width="2" height="2">
-        <s:fill>
-            <s:SolidColor color="{txtcolor}"/>
-        </s:fill>
-    </s:Rect>
+    <components:LabelRect color1="{ col1 }" textColor="{ textColor }" />
     <s:Label id="lbl" width="90" x="13" y="0" color="0x000000" text="" textAlign="left" verticalAlign="middle"/>
     <s:Image y="0" right="13" width="12" height="12" smooth="true" toolTip="play now"
              source="@Embed('/assets/icons/1342643947_playback_play.png')" click="playNow_clickHandler(event)" visible="{showOptions}"/>

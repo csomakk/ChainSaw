@@ -69,11 +69,11 @@ public class Library {
                     st.urlString = node.urlString;
                     for each (var tag:XML in node.labels.label) {
                         if (TagManager.instance.get(tag)) {
-                            st.labels.push(TagManager.instance.get(tag))
+                            st.labels.addItem(TagManager.instance.get(tag))
                         } else {
                             var t:Tag = new Tag(tag);
                             TagManager.instance.addIfNotHas(tag);
-                            st.labels.push(t);
+                            st.labels.addItem(t);
                         }
                     }//for each label
                     soundTracks.addItem(st);

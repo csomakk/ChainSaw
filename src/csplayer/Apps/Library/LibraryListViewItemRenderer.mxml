@@ -3,7 +3,7 @@
                 xmlns:s="library://ns.adobe.com/flex/spark"
                 xmlns:Components="csplayer.Components.*"
                 autoDrawBackground="true"
-                dataChange="itemrenderer1_dataChangeHandler(event)"
+                dataChange="onDataChange(event)"
         >
     <fx:Script>
 		<![CDATA[
@@ -19,7 +19,7 @@
         [Bindable]
         private var st:SoundTrack;
 
-        protected function itemrenderer1_dataChangeHandler(event:FlexEvent):void {
+        protected function onDataChange(event:FlexEvent):void {
             if (data is SoundTrack) {
                 currentState = "songDisplay";
                 st = (data as SoundTrack);
@@ -31,9 +31,6 @@
             }
         }
 
-        protected function itemrenderer1_removeHandler(event:FlexEvent):void {
-            Library.instance.saveLibrary();
-        }
         ]]>
 	</fx:Script>
     <s:states>
