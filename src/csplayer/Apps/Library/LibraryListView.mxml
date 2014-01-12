@@ -70,10 +70,10 @@
 
         protected function adg1_doubleClickHandler(event:MouseEvent):void {
             //trace("Library:doubleClick")
-            if (list.selectedItem is SoundTrack) PlayList.instance.add(list.selectedItem);
+            if (list.selectedItem is SoundTrack) PlayList.instance.addSong(list.selectedItem);
             if (list.selectedItem is LibraryListViewSeparator) {
                 for each(var st:SoundTrack in (list.selectedItem as LibraryListViewSeparator).songs) {
-                    PlayList.instance.add(st);
+                    PlayList.instance.addSong(st);
                 }
             }
         }

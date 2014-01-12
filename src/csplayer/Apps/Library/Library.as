@@ -15,7 +15,6 @@ import flash.utils.Timer;
 
 import mx.collections.ArrayCollection;
 import mx.controls.Alert;
-import mx.controls.NavBar;
 import mx.events.CloseEvent;
 import mx.events.CollectionEvent;
 

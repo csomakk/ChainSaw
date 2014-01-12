@@ -76,7 +76,7 @@
             else {
                 var a:ArrayCollection = dataGrid.selectedItem.children;
                 //var a:Vector.<Object>=dg.selectedItems;
-                for each(var st:SoundTrack in a) PlayList.instance.add(st)
+                for each(var st:SoundTrack in a) PlayList.instance.addSong(st)
             }
         }
         ]]>

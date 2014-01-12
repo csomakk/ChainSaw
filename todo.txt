@@ -7,22 +7,7 @@
  	current shuffle works fine..
  - [] on long playlist, have a jump to now playing..
  - [] right click - disabled face share, edit
- - [] playlist label editor as popup. (auto close on click outside)
 
- - [] when not youtube anymore..
- 
- == MEDIUM
- - [] website
- - [] fix prod images
- - [] auto update after IWatchSeriez 
- - [] sleep mode, w timer. 
- - [] new label button to left pane label selector
- - [] tags as icons
-
- - [] hotkeyek, keyboard play/pause, ... space, winamp, etc
-
- - előadó ratingje = szum song ratings
- 
  == LONG
  - [] party mode (admin)
  - [] facebook wall playlist
@@ -40,7 +25,19 @@
  - [] tag search, search, autoDJ
  - [] labelList options gombok bekötése, klikkre arra legyen szűrés
  - [] folder app megcsinálása..
-  
+
+   == MEDIUM
+   - [] website
+   - [] fix prod images
+   - [] auto update after IWatchSeriez
+   - [] sleep mode, w timer.
+   - [] new label button to left pane label selector
+   - [] tags as icons
+
+   - [] hotkeyek, keyboard play/pause, ... space, winamp, etc
+
+   - előadó ratingje = szum song ratings
+
  == LOW
  - [] custom save folder for settings, labels, sync
  - [] fix icons

@@ -3,6 +3,7 @@
          xmlns:s="library://ns.adobe.com/flex/spark"
          initialize="onInit(event)"
          creationComplete="onCreationComplete(event)"
+         mouseDownOutside="close()"
          keyDown="onKeyDown(event)"
          width="214" height="300"
          title="Tag as:">
@@ -33,14 +34,13 @@
 
         protected function onCreationComplete(event:FlexEvent):void {
             addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, close);
+            list.addEventListener(IndexChangeEvent.CHANGE, onListSelection);
         }
 
         public function setSoundTracks(st:Object):void {
             for each (var soundTrack:Object in st) {
                 if (soundTrack is SoundTrack) selectedSoundTracks.push(soundTrack);
             }
-
-            list.addEventListener(IndexChangeEvent.CHANGE, onListSelection);
         }
 
         protected function refreshAvailableTags():void {
@@ -103,6 +103,7 @@
     <s:List id="list"
             dataProvider="{ filteredTags }"
             itemRenderer="csplayer.Components.LabelRenderer2"
+
             left="10" right="9" top="40" bottom="10">
     </s:List>
     <s:Image y="-25" right="6" width="19" height="19" smooth="true"

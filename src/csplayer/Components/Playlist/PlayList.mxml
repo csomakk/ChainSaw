@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Group xmlns:fx="http://ns.adobe.com/mxml/2009"
        xmlns="library://ns.adobe.com/flex/spark"
-       width="498" creationComplete="group1_creationCompleteHandler(event)"
-       deactivate="group1_removedHandler(event)">
+       width="498" creationComplete="onCreationComplete(event)"
+       deactivate="onRemove(event)">
     <fx:Script>
 		<![CDATA[
         import csplayer.Apps.Library.Library;
@@ -17,6 +17,7 @@
         import mx.collections.ArrayCollection;
         import mx.core.FlexGlobals;
         import mx.events.FlexEvent;
+        import mx.managers.PopUpManager;
 
         [Bindable]
         public var playlist:ArrayCollection = new ArrayCollection();
@@ -25,8 +26,7 @@
         [Bindable]
         public static var instance:PlayList;
 
-        public function add(item:Object):void {
-            //item.playListPosition=playlist.length;
+        public function addSong(item:Object):void {
             playlist.addItem(item);
             if (playlist.length == 1 && currentSong < 1) {
                 FlexGlobals.topLevelApplication.mainContainer.control.play();
@@ -85,7 +85,7 @@
         }
 
 
-        protected function list1_doubleClickHandler(event:MouseEvent):void {
+        protected function onListDoubleClick(event:MouseEvent):void {
             currentSong = list.selectedIndex;
             Control.instance.play();
         }
@@ -119,7 +119,7 @@
                         st.rating = node.rating;
                         st.artist = node.artist;
                         st.urlString = node.urlString;
-                        add(st);
+                        addSong(st);
                         Control.instance.stop();
                     }//for each node
                 }//if !=null
@@ -137,16 +137,16 @@
         }//loadPlaylist()
 
 
-        protected function group1_creationCompleteHandler(event:FlexEvent):void {
+        protected function onCreationComplete(event:FlexEvent):void {
             instance = this;
             loadPlaylist()
         }
 
-        protected function group1_removedHandler(event:Event):void {
+        protected function onRemove(event:Event):void {
             savePlaylist()
         }
 
-        protected function list_keyDownHandler(event:KeyboardEvent):void {
+        protected function onKeyDown(event:KeyboardEvent):void {
             var i:int;
 
             if (event.keyCode == Keyboard.DELETE) {
@@ -172,19 +172,19 @@
                 playlist.removeItemAt(rnd);
             }
 
-            playlist.addItem(curr); //nem add(), mert akkor újrakezdené a számot a len=1 miatt.
+            playlist.addItem(curr);
 
             currentSong = 0;
             for (var i:String in shuffled) {
-                add(shuffled[i]);
+                addSong(shuffled[i]);
             }
 
         }
 
-        protected function addLabel_clickHandler(event:MouseEvent):void {
-            var addtag:AddTagPopup = new AddTagPopup();
-            addElement(addtag);
-            addtag.setSoundTracks(playlist);
+        protected function onAddLabelClick(event:MouseEvent):void {
+            var addTag:AddTagPopup = new AddTagPopup();
+            addTag.setSoundTracks(playlist);
+            PopUpManager.addPopUp(addTag, this);
 
         }
         ]]>
@@ -206,10 +206,10 @@
     </Rect>
     <List id="list" left="1" right="1" top="41" bottom="1" allowMultipleSelection="true"
           borderVisible="false" dataProvider="{playlist}"
-          doubleClick="list1_doubleClickHandler(event)" doubleClickEnabled="true"
+          doubleClick="onListDoubleClick(event)" doubleClickEnabled="true"
           dragEnabled="true" dragMoveEnabled="true" dropEnabled="true"
           itemRenderer="csplayer.Components.Playlist.PlayListItemRenderer"
-          keyDown="list_keyDownHandler(event)"/>
+          keyDown="onKeyDown(event)"/>
     <Image x="167" top="9" width="24" height="24"
            click="shuffle()"
            smooth="true"
@@ -221,7 +221,7 @@
            source="@Embed('/assets/icons/1342554922_recycle.png')"
            toolTip="clear"/>
     <Image x="223" top="6" width="24" height="30"
-           click="addLabel_clickHandler(event)"
+           click="onAddLabelClick(event)"
            smooth="true"
            source="@Embed('/assets/icons/1342554926_tag.png')"
            toolTip="add Label to all tracks in playlist"/>
