@@ -1,5 +1,4 @@
  == HIGH
- - order by artists in library.
  
  == EASY
  - [] good random. every open increase size of library with new random number.

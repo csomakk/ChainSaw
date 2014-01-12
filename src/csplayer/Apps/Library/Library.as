@@ -1,12 +1,10 @@
 package csplayer.Apps.Library {
 import csplayer.Classes.CsUtils;
 import csplayer.Classes.SoundTrack;
-import csplayer.Classes.SoundTrack;
 import csplayer.Classes.Tag;
 import csplayer.Classes.TagManager;
 import csplayer.Components.Control;
 import csplayer.Components.Playlist.PlayList;
-import csplayer.Components.TagList;
 
 import flash.events.Event;
 import flash.events.TimerEvent;
@@ -17,8 +15,13 @@ import flash.utils.Timer;
 
 import mx.collections.ArrayCollection;
 import mx.controls.Alert;
+import mx.controls.NavBar;
 import mx.events.CloseEvent;
 import mx.events.CollectionEvent;
+
+import spark.collections.Sort;
+
+import spark.collections.SortField;
 
 public class Library {
 
@@ -35,10 +38,10 @@ public class Library {
 
     public function Library() {
         instance = this;
-        soundTracks.addEventListener(CollectionEvent.COLLECTION_CHANGE, soundTracks_ChangeHandler)
+        soundTracks.addEventListener(CollectionEvent.COLLECTION_CHANGE, onSoundTracksChange)
     }
 
-    protected function soundTracks_ChangeHandler(event:Event = null):void {
+    protected function onSoundTracksChange(event:Event = null):void {
         changed = true;
     }
 
@@ -78,7 +81,17 @@ public class Library {
                 }//for each node
             }//if !=null
         }//if file exists
+        sortLibrary();
     }//loadLibrary()
+
+    public function sortLibrary():void  {
+        var dataSortField:SortField = new SortField();
+        dataSortField.name = "artist";
+        var artistSort:Sort = new Sort();
+        artistSort.fields = [dataSortField];
+        soundTracks.sort = artistSort;
+        soundTracks.refresh();
+    }
 
 
     /** saveLibrary: saves all songs. */
